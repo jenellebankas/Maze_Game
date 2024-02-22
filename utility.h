@@ -7,7 +7,10 @@
 
 void openFile(int argc, *char argv[]);
 int movement(char userInput);
+int moveUser();
 int checkDimensions();
 void displayMaze();
+char checkPieceType();
+
 
 #endif

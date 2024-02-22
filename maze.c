@@ -35,6 +35,7 @@ typedef struct {
 
 char maze_piece mazeArray[maze.rowDimension][maze.colDimension];
 
+// this is where the main gameplay will be processed
 int main() {
 
 
@@ -42,16 +43,24 @@ int main() {
 
 // function for opening the file 
 // also gain row dimension variable to be used later, to be input into struct 
+// the row dimension should be returned when called 
 
-void openFile(int argc, *char argv[]) {
+int openFile(int argc, *char argv[]) {
 
 }
 
 // function to process characters within the maze file and sort into the given array
 // also gain column dimension variable to be used later, to be input into struct
+// this will be returned from the call 
 
-void tokeniseMaze(char *line) {
+int tokeniseMaze(char *line) {
 
+}
+
+// function to present options to user and explain the game 
+
+void displayOptions() {
+    
 }
 
 // function for movements 
@@ -75,8 +84,9 @@ int checkDimensions() {
 
 }
 
-// function that return piece type 
+// function that returns piece type 
 // for checking if move is valid or not 
+
 char checkPieceType() {
 
 }
