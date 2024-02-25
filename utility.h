@@ -5,7 +5,8 @@
 
 // forward definitions
 
-void openFile(int argc, *char argv[]);
+int openFile(int argc, char* argv[]);
+int tokeniseMaze(char* line);
 int movement(char userInput);
 int moveUser();
 int checkDimensions();
