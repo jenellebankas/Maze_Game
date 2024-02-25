@@ -33,16 +33,12 @@ typedef struct {
 }mazeInfo;
 
 
-
 // this is where the main gameplay will be processed
 // declare the variable to store the maze pieces 
 
 int main() {
 
-    
-
     return 0;
-
 }
 
 // function for opening the file 
@@ -59,7 +55,6 @@ int openFile(int argc, char* argv[]) {
 // this will be returned from the call 
 
 int tokeniseMaze(char* line) {
-
 
     return 0;
 }
@@ -79,8 +74,9 @@ int movement(char userInput) {
 }
 
 // function to update position of user 
-
-int moveUser() { 
+// adds or subtracts from user piece rowPosition and colPosition
+// dependent on input from the user 
+int moveUser(char movementChar) { 
 
     return 0;
 }
@@ -99,7 +95,8 @@ int checkDimensions() {
 
 char checkPieceType() {
 
-    return 'a';
+    return '\0';
+
 }
 
 // function to display the maze 

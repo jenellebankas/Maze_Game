@@ -8,7 +8,7 @@
 int openFile(int argc, char* argv[]);
 int tokeniseMaze(char* line);
 int movement(char userInput);
-int moveUser();
+int moveUser(char movementChar);
 int checkDimensions();
 void displayMaze();
 char checkPieceType();

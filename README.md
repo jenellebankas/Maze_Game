@@ -1,30 +1,60 @@
 # **MAZE_GAME: COMP1721 PROGRAMMING PROJECT**
 
-# Functionality
-*The reasoning behind the chosen format*
-
 ## Variables
 
-- mazePiece
-- mazeInfo
+- **mazePiece**
+    - Contains basic information required by each piece 
+    - Also has boolean arguments implemented by int to distinguish what type of piece 
+    - Also stores position of the piece in terms of column and row 
+- **mazeInfo**
+    -  Contains basic information for the maze itself 
+    -  Allows for easy access for dimensions and where the start and end piece are 
 
 
 ## Functions
 
-- openFile(int argc, char* argv[]);
-- tokeniseMaze(char* line);
-- movement(char userInput);
-- moveUser();
-- checkDimensions();
-- displayMaze();
-- checkPieceType();
+- **`openFile(int argc, char* argv[])`**
+    - Used to open the file and also gain the dimensions required by the program 
+    - Should return these values which can be used in the struct for mazeInfo
+- **`tokeniseMaze(char* line)`**
+    - Used to sort each piece info into an 2D array of mazePiece structs defined 
+- **`movement(char userInput)`**
+    - Processes user input and implements their chosen move
+- **`moveUser()`**
+    - Carries out the movement by adjustment of user player 'X' x and y values
+- **`displayMaze()`**
+    - Displays maze current state with the user's 'X' displayed on the board
+- **`checkPieceType()`**
+    - Returns the type of piece to determine whether a move can be carried out 
+    
 
 # Testing
 *Overview of chosen tests*
 
-| Tests | Description |
+| **Tests** | **Description** |
 | ----- | ----------- |
-| jsafhijfignajfngkjnkasngkn | jinfkjsdngfkjnajkdfk |
+|**Argument Tests**| Incorrect filename entered|
+|| Testing incorrect initialisation of executable|
+|| Too many arguments entered|
+|**Data Tests**| Testing maze dimensions are 5 > and < 100|
+|| Validity of maze dimensions (row)|
+|| Validity of maze dimensions (column)|
+|| Validity of symbols in maze file|
+|| Checking if a start and end are present|
+|| Maze file contains data|
+|**User Input**| Testing valid key entered for movement|
+|| Testing no arguments for movement|
+|**Logic Tests**| Invalid movement into wall|
+|| Invalid movement out of the map|
+|**Successful Tests**| Testing file loads succesfully|
+|| Testing cases of user input (W/w)|
+|| Testing cases of user input (A/a)|
+|| Testing cases of user input (S/s)|
+|| Testing cases of user input (D/d)|
+|| Testing successful run (Maze 1)|
+|| Testing successful run (Maze 2)|
+|| Testing successful run (Maze 3)|
+|| Testing successful run (Maze 4)|
 
 
 ## *Error Messages*

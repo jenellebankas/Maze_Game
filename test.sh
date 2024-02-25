@@ -3,7 +3,7 @@
 # format taken from:  https://github.com/jenellebankas/lab2-finished, repository by Amy Brereton
 
 
-echo -e "~~ File Tests ~~\n"
+echo -e "\n~~ File Tests ~~\n"
 
 echo -n "Incorrect filename entered -"
 # Incorrect filename 
@@ -123,10 +123,10 @@ else
 fi
 
 
-
 echo -n "Testing no arguments for movement - "
 # No value entered for movement 
 
+./maze successMaze/movementMaze.txt > tmp
 if grep -q "Must use W/w, A/a, S/s, D/d or M/m" tmp;
 then
     echo "PASS"
@@ -141,6 +141,7 @@ echo -e "\n~~ Logic Tests ~~\n"
 echo -n "Invalid movement into wall - "
 # Attempting to walk through a wall 
 
+echo "w" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then
     echo "PASS"
@@ -151,6 +152,7 @@ fi
 echo -n "Invalid movement out of the map - "
 # Attempting to walk off the edge of the map 
 
+echo "a" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then
     echo "PASS"
@@ -163,6 +165,7 @@ echo -e "\n~~ Successful Test ~~\n"
 
 echo -n "Testing file loads succesfully - "
 
+timeout 0.2s ./maze successMazes/successMaze1 > tmp
 if grep -q "File loaded successfully" tmp;
 then
     echo "PASS"
@@ -171,8 +174,9 @@ else
 fi
 
 
-echo -n "Testing cases of user input (upper case) - "
+echo -n "Testing cases of user input (W/w) - "
 
+echo "w" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     echo "PASS"
@@ -180,8 +184,29 @@ else
     echo "FAIL"
 fi
 
-echo -n "Testing cases of user input (lower case) - "
+echo -n "Testing cases of user input (A/a) - "
 
+echo "a" | ./maze successMaze/movementMaze.txt > tmp
+if grep -q "Piece moved successfully" tmp;
+then
+    echo "PASS"
+else
+    echo "FAIL"
+fi
+
+echo -n "Testing cases of user input (S/s) - "
+
+echo "s" | ./maze successMaze/movementMaze.txt > tmp
+if grep -q "Piece moved successfully" tmp;
+then
+    echo "PASS"
+else
+    echo "FAIL"
+fi
+
+echo -n "Testing cases of user input (D/d) - "
+
+echo "d" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     echo "PASS"
