@@ -161,9 +161,17 @@ fi
 
 echo -e "\n~~ Successful Test ~~\n"
 
+echo -n "Testing file loads succesfully - "
+
+if grep -q "File loaded successfully" tmp;
+then
+    echo "PASS"
+else
+    echo "FAIL"
+fi
+
 
 echo -n "Testing cases of user input (upper case) - "
-# Valid key value entered for movement upper case 
 
 if grep -q "Piece moved successfully" tmp;
 then
@@ -173,7 +181,6 @@ else
 fi
 
 echo -n "Testing cases of user input (lower case) - "
-# Valid key value entered for movement lower case 
 
 if grep -q "Piece moved successfully" tmp;
 then
@@ -183,7 +190,6 @@ else
 fi
 
 echo -n "Testing successful run (Maze 1) - "
-# Checking success message reached when edge of maze reached 
 
 timeout 0.2s ./maze successMazes/successMaze1.txt < successMoves/successMaze1Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!" tmp;
@@ -194,7 +200,6 @@ else
 fi
 
 echo -n "Testing successful run (Maze 2) - "
-# Checking success message reached when edge of maze reached 
 
 timeout 0.2s ./maze successMazes/successMaze2.txt < successMoves/successMaze2Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!" tmp;
@@ -205,7 +210,6 @@ else
 fi
 
 echo -n "Testing successful run (Maze 3) - "
-# Checking success message reached when edge of maze reached 
 
 timeout 0.2s ./maze successMazes/successMaze3.txt < successMoves/successMaze3Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!" tmp;
@@ -216,7 +220,6 @@ else
 fi
 
 echo -n "Testing successful run (Maze 4) - "
-# Checking success message reached when edge of maze reached 
 
 timeout 0.2s ./maze successMazes/successMaze4.txt < successMoves/successMaze4Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!" tmp;
