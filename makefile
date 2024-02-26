@@ -12,7 +12,7 @@ CFLAGS = -Wall -Werror -g
 # List of source files - assumes all .c files are for this program so be careful.
 # if this doesn't work for you (if you have a messy directory!), you can type them out manually:
 # SRCS = file1.c file2.c etc.
-SRCS = $(wildcard *.c)
+SRCS = functionIO.c maze.c 
 
 # List of object files - this makes itself from your SRCS
 OBJS = $(SRCS:.c=.o)

@@ -85,8 +85,9 @@ else
     echo "FAIL"
 fi
 
-echo -n "Checking if a start and end are present -"
+echo -n "Checking if one start and end are present -"
 # Checking if each column same length 
+# need to check if line is the same
 
 timeout 0.2s ./maze invalidMazes/noStartEnd.txt > tmp
 if grep -q "Data in file is not valid" tmp;
@@ -141,6 +142,7 @@ echo -e "\n~~ Logic Tests ~~\n"
 echo -n "Invalid movement into wall - "
 # Attempting to walk through a wall 
 
+S #####
 echo "w" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then

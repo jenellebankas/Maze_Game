@@ -40,7 +40,7 @@
 || Validity of maze dimensions (row)|
 || Validity of maze dimensions (column)|
 || Validity of symbols in maze file|
-|| Checking if a start and end are present|
+|| Checking if one start and end are present|
 || Maze file contains data|
 |**User Input**| Testing valid key entered for movement|
 || Testing no arguments for movement|
