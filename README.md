@@ -13,19 +13,25 @@
 
 ## Functions
 
-- **`openFile(int argc, char* argv[])`**
+- **`void openFile(int argc, char* argv[])`**
     - Used to open the file and also gain the dimensions required by the program 
     - Should return these values which can be used in the struct for mazeInfo
-- **`tokeniseMaze(char* line)`**
+- **`int tokeniseMaze(char* line)`**
     - Used to sort each piece info into an 2D array of mazePiece structs defined 
-- **`movement(char userInput)`**
+- **`void displayOptions()`**
+    - Used to prompt user for their input
+- **`int movement(char userInput)`**
     - Processes user input and implements their chosen move
-- **`moveUser()`**
+- **`int moveUser()`**
     - Carries out the movement by adjustment of user player 'X' x and y values
-- **`displayMaze()`**
+- **`void displayMaze()`**
     - Displays maze current state with the user's 'X' displayed on the board
-- **`checkPieceType()`**
+- **`int checkPieceType(char symbol)`**
     - Returns the type of piece to determine whether a move can be carried out 
+- **`int checkEnd()`**
+    - Returns boolean implemented through int type 
+- **`int checkMoveValidity()`**
+    - Return boolean implemented through int type and checks if move can be done
     
 
 # Testing
@@ -70,7 +76,8 @@
 - Empty file: "File is empty"
 - Succesful move: "Piece moved successfully"
 - File loaded succesfully: "File loaded successfully"
-- Invalid move attempted: "Move not allowed, try again:"
+- Invalid move attempted: "Move not allowed, try again:" 
 
-- Successful run message: "Congratulations, you have reached the end of the maze!"
+-  Successful run message: "Congratulations, you have reached the end of the maze!" (there will also be an ASCII art after this)
+
 

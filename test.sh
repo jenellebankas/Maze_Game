@@ -192,7 +192,7 @@ else
 fi
 
 
-echo -e "\n${PURPLE}~~ Successful Test ~~${NC}\n"
+echo -e "\n${PURPLE}~~ Successful Tests ~~${NC}\n"
 
 echo -n "Testing file loads succesfully - "
 
@@ -282,7 +282,14 @@ fi
 echo -n "Testing successful run (Maze 1) - "
 
 timeout 0.2s ./maze successMazes/successMaze1.txt < successMoves/successMaze1Moves.in > tmp
-if grep -q "Congratulations, you have reached the end of the maze!" tmp;
+if grep -q "Congratulations, you have reached the end of the maze!\n
+ _     _  _______  ___      ___        ______   _______  __    _  _______  __  
+| | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
+| || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  | 
+|       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  | 
+|       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__| 
+|   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __  
+|__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -292,7 +299,14 @@ fi
 echo -n "Testing successful run (Maze 2) - "
 
 timeout 0.2s ./maze successMazes/successMaze2.txt < successMoves/successMaze2Moves.in > tmp
-if grep -q "Congratulations, you have reached the end of the maze!" tmp;
+if grep -q "Congratulations, you have reached the end of the maze!\n 
+ _     _  _______  ___      ___        ______   _______  __    _  _______  __  
+| | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
+| || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  | 
+|       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  | 
+|       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__| 
+|   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __  
+|__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -302,7 +316,15 @@ fi
 echo -n "Testing successful run (Maze 3) - "
 
 timeout 0.2s ./maze successMazes/successMaze3.txt < successMoves/successMaze3Moves.in > tmp
-if grep -q "Congratulations, you have reached the end of the maze!" tmp;
+if grep -q "Congratulations, you have reached the end of the maze!\n
+ _     _  _______  ___      ___        ______   _______  __    _  _______  __  
+| | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
+| || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  | 
+|       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  | 
+|       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__| 
+|   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __  
+|__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|
+" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -312,7 +334,14 @@ fi
 echo -n "Testing successful run (Maze 4) - "
 
 timeout 0.2s ./maze successMazes/successMaze4.txt < successMoves/successMaze4Moves.in > tmp
-if grep -q "Congratulations, you have reached the end of the maze!" tmp;
+if grep -q "Congratulations, you have reached the end of the maze!\n
+ _     _  _______  ___      ___        ______   _______  __    _  _______  __  
+| | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
+| || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  | 
+|       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  | 
+|       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__| 
+|   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __  
+|__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else

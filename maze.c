@@ -1,5 +1,5 @@
 #include "defines.h"
-#include "utility.h"
+#include "functionIO.h"
 
 // struct definition to use for pieces within maze
 // loop through each piece from file and assign 
@@ -15,11 +15,12 @@ typedef struct {
     int isStart;
     int isEnd;
 
-}maze_piece;
+}MAZEPIECE;
 
 
 // struct for the maze 
 // this struct will hold the data to of the start position, endposition, dimensions of the maze 
+
 
 typedef struct {
 
@@ -27,17 +28,27 @@ typedef struct {
     int startPositionY;
     int endPositionX;
     int endPositionY;
+    int userStartX;
+    int userStartY;
     int rowDimension;
     int colDimension;
 
-}mazeInfo;
+}MAZEINFO;
 
 
 // this is where the main gameplay will be processed
 // declare the variable to store the maze pieces 
+// the array will be declared after the file is opened but before it is tokenised 
+// how the game works will be described through a simple print statement
+// the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
+// the user then plays the game until they reach the end 
+// functionality for this can be seen in the functionIO.c file 
+// success message will then be shown 
+
 
 int main() {
 
+    MAZEPIECE maze_array[MAZEINFO.rowDimension][MAZEINFO.colDimension] = {}; 
     return 0;
 }
 
