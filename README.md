@@ -46,11 +46,13 @@
 || Testing no arguments for movement|
 |**Logic Tests**| Invalid movement into wall|
 || Invalid movement out of the map|
+|| Checking X shown when on S and when user clicks M/m|
 |**Successful Tests**| Testing file loads succesfully|
 || Testing cases of user input (W/w)|
 || Testing cases of user input (A/a)|
 || Testing cases of user input (S/s)|
 || Testing cases of user input (D/d)|
+|| Testing cases of user input (M/m)|
 || Testing successful run (Maze 1)|
 || Testing successful run (Maze 2)|
 || Testing successful run (Maze 3)|

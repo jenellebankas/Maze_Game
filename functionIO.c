@@ -89,17 +89,3 @@ void displayMaze() {
 
 }
 
-- **`openFile(int argc, char* argv[])`**
-    - Used to open the file and also gain the dimensions required by the program 
-    - Should return these values which can be used in the struct for mazeInfo
-- **`tokeniseMaze(char* line)`**
-    - Used to sort each piece info into an 2D array of mazePiece structs defined 
-- **`movement(char userInput)`**
-    - Processes user input and implements their chosen move
-- **`moveUser()`**
-    - Carries out the movement by adjustment of user player 'X' x and y values
-- **`displayMaze()`**
-    - Displays maze current state with the user's 'X' displayed on the board
-- **`checkPieceType()`**
-    - Returns the type of piece to determine whether a move can be carried out 
-    
