@@ -45,21 +45,20 @@ typedef struct {
 // success message will then be shown 
 
 
-int main() {
+int main(int argc, char* argv[]) {
 
 
     // the array will be declared after the file is opened but before it is tokenised 
     // dimensions will be checked using the checkDimensions() function and this will allow the size of the 2D array to be known 
 
-    openFile(int argc, char* argv[]);
-
+    //int fileCheck = openFile(argv[1]);
 
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
     // the user then plays the game until they reach the end 
 
 
-    while (!isEnd()) {
+    while (!checkEnd()) {
         
     
         displayOptions();

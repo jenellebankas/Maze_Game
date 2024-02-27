@@ -5,7 +5,7 @@
 
 // forward definitions
 
-int openFile(int argc, char* argv[]);
+int openFile(char filename[]);
 int checkDimensions(char filename[]);
 int tokeniseMaze(char filename[]);
 void displayOptions();

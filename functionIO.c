@@ -11,15 +11,14 @@
 // opens the file for manipulation
 // callse tokeniseMaze() function and checkDimensions()
 
-int openFile(int argc, char* argv[]) {
+int openFile(char filename[]) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and the number of arguments 
-    FILE *file = fopen(argv[1], "r");
+    FILE *file = fopen(filename, "r");
 
-    
 
-    tokeniseMaze(argv[1]);
+    tokeniseMaze(filename);
 
     fclose(file);
 
@@ -84,13 +83,16 @@ int checkDimensions(char filename[]) {
 
 // gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
 
-int tokeniseMaze(line) {
+int tokeniseMaze(char filename[]) {
 
     int dimensionsValid = checkDimensions(filename);
 
+    FILE *file = fopen(filename, "r");
+    int line;
+
     // while loop to retrieve individual characters from each line and add to the array 
     // error checking done to see if the characters are valid 
-    while (fgetc(line)) {
+    while ((line = fgetc(file)) != EOF) {
         
     }
 
