@@ -7,9 +7,9 @@
     - Also has boolean arguments implemented by int to distinguish what type of piece 
     - Also stores position of the piece in terms of column and row 
 - **mazeInfo**
-    -  Contains basic information for the maze itself 
-    -  Allows for easy access for dimensions and where the start and end piece are 
-
+    - Contains basic information for the maze itself 
+    - Allows for easy access for dimensions and where the start and end piece are 
+    - The maze dimensions are stored as a few functions must access this informaition and it is therefore easier to keep it in the struct 
 
 ## Functions
 
@@ -26,12 +26,8 @@
     - Used to prompt user for their input
 - **`int movement(char userInput)`**
     - Processes user input and implements their chosen move
-- **`int moveUser()`**
-    - Carries out the movement by adjustment of user player 'X' x and y values
 - **`void displayMaze()`**
     - Displays maze current state with the user's 'X' displayed on the board
-- **`int checkPieceType(char symbol)`**
-    - Returns the type of piece to determine whether a move can be carried out 
 - **`int checkEnd()`**
     - Returns boolean implemented through int type 
 - **`int checkMoveValidity(char userInput)`**

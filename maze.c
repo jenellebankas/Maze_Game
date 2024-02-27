@@ -5,6 +5,7 @@
 // loop through each piece from file and assign 
 // each piece has a symbol, column, row
 // boolean implemented as integers to check the type of piece 
+// will be defined as a 2D array later on in program .see tokeniseMaze()
 
 typedef struct {
 
@@ -48,17 +49,22 @@ MAZEINFO maze;
 
 
 int main(int argc, char* argv[]) {
-
+    
+    // error checking for command line arguments done first
 
     // the array will be declared after the file is opened but before it is tokenised 
     // dimensions will be checked using the checkDimensions() function and this will allow the size of the 2D array to be known 
 
-    //int fileCheck = openFile(argv[1]);
+    //openFile(argv[1]);
+
+    // basic game explaination printed before the while loop starts 
 
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
     // the user then plays the game until they reach the end 
     // user option is read in from displayOptions()
+    // this option is processed as seen in functionIO.c 
+    
 
 
 

@@ -5,13 +5,12 @@
 * @brief opening the maze file 
 *
 * @param filename from command arguments taken in from main()
-* @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
 */
 
 // opens the file for manipulation
 // callse tokeniseMaze() function and checkDimensions()
 
-int openFile(char filename[]) {
+void openFile(char filename[]) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and the number of arguments 
@@ -102,14 +101,14 @@ char displayOptions() {
 }
 
 /**
-* @brief 
+* @brief movements switch that calls the actual moveUser() function
 *
-* @param userInput
-* @return 0 or 1 if error 
+* @param userInput for the char to be processed obtained from displayOptions()
+* @return 0 or 1 if error and prints message 
 */
 
 
-// function for movements 
+// function for 
 // process the string and use switch cases
 // each switch case will call the moveUser() function 
 
@@ -120,22 +119,22 @@ int movement(char userInput) {
         
         case 'W':
 
-            moveUser();
+            checkMoveValidity(toupper(userInput));
             break;
 
         case 'A':
 
-            moveUser();
+            checkMoveValidity(toupper(userInput));
             break;
 
         case 'S':
 
-            moveUser();
+            checkMoveValidity(toupper(userInput));
             break;
 
         case 'D':
 
-            moveUser();
+            checkMoveValidity(toupper(userInput));
             break;
 
         case 'M':
@@ -150,24 +149,6 @@ int movement(char userInput) {
     return 0;
 }
 
-
-/**
-* @brief 
-*
-* @return 0 if move is possible or 1 if error occurs and prints error message 
-*/
-
-// function to update position of user and replace prior position with ' '
-// adds or subtracts from user piece rowPosition and colPosition
-// dependent on input from the user
-// gives "Piece moved succesfully"
-// calls the checkMoveValidity and return "Move not allowed, try again:" if move not allowed
-
-
-int moveUser() { 
-
-    return 0;
-}
 
 
 /**
@@ -186,31 +167,24 @@ void displayMaze() {
 /**
 * @brief checks if valid char within the maze file
 *
-* @return 0 or 1 
+* @return 0 or 1 if the characters from the maze file are not valid
 */
 
-
-
+// call this in the tokeniseMaze() function as each char is tokenised 
 int checkChar(char input) {
     return 0;
 }
 
 /**
-* @brief 
-*
-* @param command line 
-* @param 
-* @return 0 or 1 if error occurs 
+* @brief checks if move can be made  
+* @param userInput is their chosen move and will 
+* @return 0 or 1 if the move can be carried out will produce an error if the move is not 
 */
 
-// function that returns piece type 
-// for checking if move is valid or not 
-// returns 0 or 1 depending on what piece variable is checked
-// called when user attempts a move to find out type of piece in square intending to move to 
-// parameter is MAZEPIECE.symbol from the position within the 2D array 
+// uses switch statement accesses array at attempted position and uses checkPieceType() to determine if move is allowed 
 
-int checkPieceType(char symbol) {
 
+int checkMoveValidity(char userInput) {
     return 0;
 }
 
@@ -218,7 +192,7 @@ int checkPieceType(char symbol) {
 /**
 * @brief checks if the end piece has been reached
 *
-* @return 0 or 1 
+* @return 0 or 1 if the player is moving to the end piece 
 */
 
 // compares users x and y values against values stored in MAZEINFO for end 
@@ -227,20 +201,5 @@ int checkPieceType(char symbol) {
 // should be called each time player moves 
 
 int checkEnd() {
-    return 0;
-}
-
-
-/**
-* @brief 
-*
-* @return 0 or 1 
-*/
-
-// checks if move can be made 
-// uses switch statement accesses array at attempted position and uses checkPieceType() to determine if move is allowed 
-
-
-int checkMoveValidity(char userInput) {
     return 0;
 }
