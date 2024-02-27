@@ -13,13 +13,15 @@
 void openFile(char filename[]) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
-    // error checking for the filename and the number of arguments 
+    // error checking for the filename and if it exists 
+    
     FILE *file = fopen(filename, "r");
 
+    // calls checkDimensions() function before proceding to ensure that time is not wasted
+
+    // while loop for each line which can be processed by tokeniseMaze() which can be called here 
     fclose(file);
 
-    // temp return until function programmed
-    return 0;
 
 }
 
