@@ -13,12 +13,16 @@
 
 ## Functions
 
-- **`void openFile(int argc, char* argv[])`**
+- **`void openFile(char filename[])`**
     - Used to open the file and also gain the dimensions required by the program 
-    - Should return these values which can be used in the struct for mazeInfo
-- **`int tokeniseMaze(char* line)`**
+    - Values for row and column length will be updated from the call of tokeniseMaze
+- **`int checkDimensions(char filename[])`**
+    - Used to check dimensions of the file 
+    - Stores current length for each row 
+    - returns 1 if a length is uneven 
+- **`int tokeniseMaze(const char *line)`**
     - Used to sort each piece info into an 2D array of mazePiece structs defined 
-- **`void displayOptions()`**
+- **`char displayOptions()`**
     - Used to prompt user for their input
 - **`int movement(char userInput)`**
     - Processes user input and implements their chosen move
@@ -30,7 +34,7 @@
     - Returns the type of piece to determine whether a move can be carried out 
 - **`int checkEnd()`**
     - Returns boolean implemented through int type 
-- **`int checkMoveValidity()`**
+- **`int checkMoveValidity(char userInput)`**
     - Return boolean implemented through int type and checks if move can be done
     
 

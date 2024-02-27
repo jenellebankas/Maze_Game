@@ -7,14 +7,14 @@
 
 int openFile(char filename[]);
 int checkDimensions(char filename[]);
-int tokeniseMaze(char filename[]);
-void displayOptions();
+void tokeniseMaze(const char *line);
+char displayOptions();
 int movement(char userInput);
 int moveUser();
 void displayMaze();
 int checkPieceType(char symbol);
 int checkEnd();
-int checkMoveValidity();
+int checkMoveValidity(char userInput);
 
 
 #endif

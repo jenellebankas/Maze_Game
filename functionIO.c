@@ -4,7 +4,7 @@
 /**
 * @brief opening the maze file 
 *
-* @param command line arguments
+* @param filename from command arguments taken in from main()
 * @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
 */
 
@@ -17,25 +17,12 @@ int openFile(char filename[]) {
     // error checking for the filename and the number of arguments 
     FILE *file = fopen(filename, "r");
 
-
-    tokeniseMaze(filename);
-
     fclose(file);
 
     // temp return until function programmed
     return 0;
 
 }
-
-/**
-* @brief check dimensions of maze returning row and column in an array 
-* @param
-
-*/
-
-//fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c
-// error checking for the uniform row length 
-// error checking for uniform column length 
 
 
 /**
@@ -45,17 +32,23 @@ int openFile(char filename[]) {
 * @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
 */
 
+// error checking for the uniform row length 
+// error checking for uniform column length 
+
+
 int checkDimensions(char filename[]) {
 
     // variables declared here to keep track of expected row and column length based off of first line needed
 
     // open the file to allow dimensions to be checked 
     FILE *file = fopen(filename, "r");
-    int lineCheck;
+
 
     // counts individual characters in the row
     // has a count
-    while ((lineCheck = fgetc(file)) != EOF);
+    // index through the line 
+    // while the char is not \n
+    
 
     // error checking done before this declaration 
     // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
@@ -69,12 +62,13 @@ int checkDimensions(char filename[]) {
 
 }
 
+/**
+* @brief input values for rows and columns and changes MAZEINFO instance of struct and adds to MAZEPIECE 2D array 
+* @param line is used to be iterated over and characters tokenised 
+*/
 
-// gain column dimension variable to be used later, to be input into struct
-// return columnDimension
-// has local variable 
-// this will be returned from the call 
-// this will call the openFile function
+
+
 // error checking for the different types of char entered and if they are valid 
 
 // counts the number of start and end pieces and produces error if there are too many or none 
@@ -82,44 +76,36 @@ int checkDimensions(char filename[]) {
 // user's position must be equated to where the S 
 
 // gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
+// fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
 
-int tokeniseMaze(char filename[]) {
+void tokeniseMaze(const char *line) {
 
-    int dimensionsValid = checkDimensions(filename);
-
-    FILE *file = fopen(filename, "r");
-    int line;
-
-    // while loop to retrieve individual characters from each line and add to the array 
-    // error checking done to see if the characters are valid 
-    while ((line = fgetc(file)) != EOF) {
-        
-    }
-
-    
-    return dimensionsValid;
 }
-
-
 
 /**
 * @brief present prompt for move for the user  
+* @return the users char of choice 
 */
 
 // called in the while loop which is controlled by variable produced from checkEnd() function
+// obtains user input by using scanf 
+// need to declare variable of type char to hold this 
+// checks if user input is a valid character
 
 
-void displayOptions() {
+char displayOptions() {
 
     printf("Please enter your next move: ");
     
+    // will be changed when solution programmed, will return user choice 
+    return 'a';
 }
 
 /**
 * @brief 
 *
 * @param userInput
-* @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
+* @return 0 or 1 if error 
 */
 
 
@@ -135,7 +121,6 @@ int movement(char userInput) {
         case 'W':
 
             moveUser();
-
             break;
 
         case 'A':
@@ -204,7 +189,6 @@ void displayMaze() {
 * @return 0 or 1 
 */
 
-// 
 
 
 int checkChar(char input) {
@@ -232,15 +216,15 @@ int checkPieceType(char symbol) {
 
 
 /**
-* @brief 
+* @brief checks if the end piece has been reached
 *
 * @return 0 or 1 
 */
 
-// checks if the end piece has been reached
-// compares users x and y values against values stored in MAZEINFO
+// compares users x and y values against values stored in MAZEINFO for end 
 // returns a boolean 
 // implemented as a while loop in the game play 
+// should be called each time player moves 
 
 int checkEnd() {
     return 0;
@@ -254,8 +238,9 @@ int checkEnd() {
 */
 
 // checks if move can be made 
+// uses switch statement accesses array at attempted position and uses checkPieceType() to determine if move is allowed 
 
 
-int checkMoveValidity() {
+int checkMoveValidity(char userInput) {
     return 0;
 }

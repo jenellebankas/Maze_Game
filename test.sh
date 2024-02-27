@@ -14,7 +14,7 @@ echo -e "\n${PURPLE}~~ File Tests ~~${NC}\n"
 echo -n "Incorrect filename entered - "
 # Incorrect filename 
 
-./maze wrongMaze.txt > tmp
+timeout 0.2s ./maze wrongMaze.txt > tmp
 if grep -q "File does not exist" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -25,7 +25,7 @@ fi
 echo -n "Testing incorrect initialisation of executable - "
 # Missing input of filename
 
-./maze > tmp
+timeout 0.2s ./maze > tmp
 if grep -q "Usage: ./maze <filename>" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -34,9 +34,8 @@ else
 fi
 
 echo -n "Too many arguments entered - "
-# Incorrect filename 
 
-./maze x x x > tmp
+timeout 0.2s ./maze x x x > tmp
 if grep -q "Too many arguments" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -69,8 +68,9 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
+# Checking if each row is the same length to form a rectangle 
 echo -n "Validity of maze dimensions, test 1 - "
-# Checking if each row is the same 
+
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensions1.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
@@ -143,7 +143,7 @@ echo -e "\n${PURPLE}~~ User Input Tests ~~${NC}\n"
 echo -n "Testing valid key entered for movement - "
 # Invalid key value entered for movement 
 
-echo "x" | ./maze successMazes/movementMaze.txt > tmp
+echo "x" | timeout 0.2s ./maze successMazes/movementMaze.txt > tmp
 if grep -q "Must be valid character" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -155,7 +155,7 @@ fi
 echo -n "Testing no arguments for movement - "
 # No value entered for movement 
 
-./maze successMaze/movementMaze.txt > tmp
+timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Must use W/w, A/a, S/s, D/d or M/m" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -170,12 +170,12 @@ echo -e "\n${PURPLE}~~ Logic Tests ~~${NC}\n"
 echo -n "Invalid movement into wall - "
 # Attempting to walk through a wall 
 
-# nested grep taken from: https://askubuntu.com/questions/1098012/is-it-possible-to-use-grep-command-nested
 
 echo "d" | timeout 0.2s ./maze successMaze/noMoveHitWall.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then
-    echo "m" > tmp
+    # checking if the movement is not carried out if correct message produced 
+    timeout 0.2s echo "m" > tmp
     if grep -q "X #####" tmp;
     then 
     echo -e "${GREEN}PASS${NC}"
@@ -200,9 +200,10 @@ fi
 echo -n "Invalid movement out of the map - "
 # Attempting to walk off the edge of the map 
 
-echo "a" | ./maze successMaze/movementOutMaze.txt > tmp
+echo "a" | timeout 0.2s ./maze successMaze/movementOutMaze.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then
+    # confirming that this move has not occurred
     echo "m" | timeout 0.2s ./maze successMaze/movementOutMaze.txt > tmp
     if grep -q "X #####" tmp;
     then 
@@ -228,12 +229,15 @@ then
 fi
 
 
+# checking if correct move has been carried out through the nested if statements 
+# for movement cases 
+
 echo -n "Testing cases of user input (W/w) - "
 
-echo "w" | ./maze successMaze/movementMaze.txt > tmp
+echo "w" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" > tmp
+    timeout 0.2s echo "m" > tmp
     if grep -q "###X###" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -246,10 +250,10 @@ fi
 
 echo -n "Testing cases of user input (A/a) - "
 
-echo "a" | ./maze successMaze/movementMaze.txt > tmp
+echo "a" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" > tmp
+    timeout 0.2s echo "m" > tmp
     if grep -q "##X ##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -262,10 +266,10 @@ fi
 
 echo -n "Testing cases of user input (S/s) - "
 
-echo "s" | ./maze successMaze/movementMaze.txt > tmp
+echo "s" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" > tmp
+    timeout 0.2s echo "m" > tmp
     if grep -q "###X## " tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -281,7 +285,7 @@ echo -n "Testing cases of user input (D/d) - "
 echo "d" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" > tmp
+    timeout 0.2s echo "m" > tmp
     if grep -q "###  X##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -294,13 +298,15 @@ fi
 
 echo -n "Testing cases of user input (M/m) - "
 
-echo "m" | ./maze successMazes/successMaze1.txt > tmp
+echo "m" | timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
 if grep -q "#X  #" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
     echo -e "${RED}FAIL${NC}"
 fi
+
+# succesful runs of different maze formats 
 
 echo -n "Testing successful run (Maze 1) - "
 

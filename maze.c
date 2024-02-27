@@ -35,6 +35,8 @@ typedef struct {
 
 }MAZEINFO;
 
+MAZEINFO maze;
+
 
 // this is where the main gameplay will be processed
 // declare the variable to store the maze pieces 
@@ -56,14 +58,10 @@ int main(int argc, char* argv[]) {
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
     // the user then plays the game until they reach the end 
+    // user option is read in from displayOptions()
 
 
-    while (!checkEnd()) {
-        
-    
-        displayOptions();
 
-    }
     return 0;
 }
 
