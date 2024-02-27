@@ -38,17 +38,33 @@ typedef struct {
 
 // this is where the main gameplay will be processed
 // declare the variable to store the maze pieces 
-// the array will be declared after the file is opened but before it is tokenised 
+
 // how the game works will be described through a simple print statement
-// the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
-// the user then plays the game until they reach the end 
+
 // functionality for this can be seen in the functionIO.c file 
 // success message will then be shown 
 
 
 int main() {
 
-    //MAZEPIECE maze_array[MAZEINFO.rowDimension][MAZEINFO.colDimension] = {}; 
+
+    // the array will be declared after the file is opened but before it is tokenised 
+    // dimensions will be checked using the checkDimensions() function and this will allow the size of the 2D array to be known 
+
+    openFile(int argc, char* argv[]);
+
+
+
+    // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
+    // the user then plays the game until they reach the end 
+
+
+    while (!isEnd()) {
+        
+    
+        displayOptions();
+
+    }
     return 0;
 }
 

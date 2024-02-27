@@ -44,8 +44,8 @@
 || Too many arguments entered|
 |**Data Tests**| Testing maze dimensions are < 100|
 || Testing maze dimensions are 5 >|
-|| Validity of maze dimensions (row)|
-|| Validity of maze dimensions (column)|
+|| Validity of maze dimensions, test 1|
+|| Validity of maze dimensions, test 2|
 || Validity of symbols in maze file|
 || Checking if start present|
 || Checking if end present|

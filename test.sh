@@ -69,10 +69,10 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Validity of maze dimensions (row) - "
-# Checking if each row same length 
+echo -n "Validity of maze dimensions, test 1 - "
+# Checking if each row is the same 
 
-timeout 0.2s ./maze invalidMazes/incorrectRow.txt > tmp
+timeout 0.2s ./maze invalidMazes/incorrectDimensions1.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -80,10 +80,9 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Validity of maze dimensions (column) - "
-# Checking if each column same length 
+echo -n "Validity of maze dimensions, test 2 - "
 
-timeout 0.2s ./maze invalidMazes/incorrectColumn.txt > tmp
+timeout 0.2s ./maze invalidMazes/incorrectDimensions2.txt > tmp
 if grep -q "Data in file is not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
