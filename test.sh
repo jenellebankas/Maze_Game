@@ -3,6 +3,7 @@
 # format taken from:  https://github.com/jenellebankas/lab2-finished, repository by Amy Brereton
 # colours taken from: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux 
 
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
@@ -36,7 +37,7 @@ echo -n "Too many arguments entered - "
 # Incorrect filename 
 
 ./maze x x x > tmp
-if grep -q "File does not exist" tmp;
+if grep -q "Too many arguments" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -46,10 +47,21 @@ fi
 
 echo -e "\n${PURPLE}~~ Data Tests ~~${NC}\n"
 
-echo -n "Testing maze dimensions are 5 > and < 100 - "
-# Checking if maze height greater than 5 and less than 100 
+echo -n "Testing maze dimensions are < 100 - "
+# Checking if maze rows and columns are less than 100 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensions.txt > tmp
+timeout 0.2s ./maze invalidMazes/incorrectDimensionRange100.txt > tmp
+if grep -q "Maze dimensions not valid" tmp;
+then
+    echo -e "${GREEN}PASS${NC}"
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+echo -n "Testing maze dimensions are 5 > - "
+# Checking if maze rows and columns are greater than 5
+
+timeout 0.2s ./maze invalidMazes/incorrectDimensionRange5.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -60,7 +72,7 @@ fi
 echo -n "Validity of maze dimensions (row) - "
 # Checking if each row same length 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensions.txt > tmp
+timeout 0.2s ./maze invalidMazes/incorrectRow.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -71,7 +83,7 @@ fi
 echo -n "Validity of maze dimensions (column) - "
 # Checking if each column same length 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensions.txt > tmp
+timeout 0.2s ./maze invalidMazes/incorrectColumn.txt > tmp
 if grep -q "Data in file is not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -90,11 +102,23 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Checking if one start and end are present - "
+echo -n "Checking if no start present - "
 # Checking if each column same length 
 # need to check if line is the same
 
-timeout 0.2s ./maze invalidMazes/noStartEnd.txt > tmp
+timeout 0.2s ./maze invalidMazes/noStart.txt > tmp
+if grep -q "Data in file is not valid" tmp;
+then
+    echo -e "${GREEN}PASS${NC}"
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+echo -n "Checking if no end present - "
+# Checking if each column same length 
+# need to check if line is the same
+
+timeout 0.2s ./maze invalidMazes/noEnd.txt > tmp
 if grep -q "Data in file is not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -120,7 +144,7 @@ echo -e "\n${PURPLE}~~ User Input Tests ~~${NC}\n"
 echo -n "Testing valid key entered for movement - "
 # Invalid key value entered for movement 
 
-echo "x" | ./maze successMazes/successMaze1.txt > tmp
+echo "x" | ./maze successMazes/movementMaze.txt > tmp
 if grep -q "Must be valid character" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -152,7 +176,7 @@ echo -n "Invalid movement into wall - "
 echo "d" | timeout 0.2s ./maze successMaze/noMoveHitWall.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then
-    echo "m" | timeout 0.2s ./maze successMaze/noMoveHitWall.txt > tmp
+    echo "m" > tmp
     if grep -q "X #####" tmp;
     then 
     echo -e "${GREEN}PASS${NC}"
@@ -163,7 +187,7 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Cheking if X showd correctly and when on start piece - "
+echo -n "Cheking if 'X' shown correctly when on start piece - "
 
 # Test to show X if on start piece 
 echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
@@ -210,7 +234,7 @@ echo -n "Testing cases of user input (W/w) - "
 echo "w" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+    echo "m" > tmp
     if grep -q "###X###" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -226,7 +250,7 @@ echo -n "Testing cases of user input (A/a) - "
 echo "a" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+    echo "m" > tmp
     if grep -q "##X ##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -242,7 +266,7 @@ echo -n "Testing cases of user input (S/s) - "
 echo "s" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+    echo "m" > tmp
     if grep -q "###X## " tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
@@ -258,7 +282,7 @@ echo -n "Testing cases of user input (D/d) - "
 echo "d" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+    echo "m" > tmp
     if grep -q "###  X##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"

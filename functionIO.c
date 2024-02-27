@@ -9,10 +9,8 @@
 // returns error if row or column length not within bounds 
 
 void openFile(int argc, char* argv[]) {
-
-    int currentRowLength = 0;
     
-    FILE *file = fopen(argv[1], "r");
+    //FILE *file = fopen(argv[1], "r");
 
 }
 
@@ -29,11 +27,7 @@ void openFile(int argc, char* argv[]) {
 
 int tokeniseMaze(char* line) {
 
-    int currentColLength = 0;
-    int numStart = 0;
-    int numEnd = 0;
-
-    return currentColLength;
+    return 0;
 }
 
 // function to present prompt for move for the user  

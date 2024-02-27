@@ -48,7 +48,7 @@ typedef struct {
 
 int main() {
 
-    MAZEPIECE maze_array[MAZEINFO.rowDimension][MAZEINFO.colDimension] = {}; 
+    //MAZEPIECE maze_array[MAZEINFO.rowDimension][MAZEINFO.colDimension] = {}; 
     return 0;
 }
 

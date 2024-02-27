@@ -42,11 +42,13 @@
 |**Argument Tests**| Incorrect filename entered|
 || Testing incorrect initialisation of executable|
 || Too many arguments entered|
-|**Data Tests**| Testing maze dimensions are 5 > and < 100|
+|**Data Tests**| Testing maze dimensions are < 100|
+|| Testing maze dimensions are 5 >|
 || Validity of maze dimensions (row)|
 || Validity of maze dimensions (column)|
 || Validity of symbols in maze file|
-|| Checking if one start and end are present|
+|| Checking if start present|
+|| Checking if end present|
 || Maze file contains data|
 |**User Input**| Testing valid key entered for movement|
 || Testing no arguments for movement|
@@ -68,6 +70,7 @@
 ## *Error Messages*
 
 - Invalid filename: "File does not exist"
+- Too many arguments: "Too many Arguments"
 - File usage: "Usage: ./maze <filename>"
 - No movement character entered: "Must use W/w, A/a, S/s, D/d or M/m"
 - Invalid character entered: "Must be valid character"
