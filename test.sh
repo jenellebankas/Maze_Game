@@ -3,7 +3,6 @@
 # format taken from:  https://github.com/jenellebankas/lab2-finished, repository by Amy Brereton
 # colours taken from: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux 
 
-
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
@@ -12,7 +11,9 @@ PURPLE='\033[0;35m'
 echo -e "\n${PURPLE}~~ File Tests ~~${NC}\n"
 
 echo -n "Incorrect filename entered - "
-# Incorrect filename 
+
+# Purpose: Checking if filename provided points to a file 
+# Expectation: Produce an error and ask the user to enter a valid file 
 
 timeout 0.2s ./maze wrongMaze.txt > tmp
 if grep -q "File does not exist" tmp;
@@ -23,7 +24,9 @@ else
 fi
 
 echo -n "Testing incorrect initialisation of executable - "
-# Missing input of filename
+
+# Purpose: Missing input of filename test
+# Expectation: Produce a usage error message and program terminates
 
 timeout 0.2s ./maze > tmp
 if grep -q "Usage: ./maze <filename>" tmp;
@@ -34,6 +37,9 @@ else
 fi
 
 echo -n "Too many arguments entered - "
+
+# Purpose: Checking when too many command line arguments provided
+# Expectation: Error message produced 
 
 timeout 0.2s ./maze x x x > tmp
 if grep -q "Too many arguments" tmp;
@@ -47,7 +53,9 @@ fi
 echo -e "\n${PURPLE}~~ Data Tests ~~${NC}\n"
 
 echo -n "Testing maze dimensions are < 100 - "
-# Checking if maze rows and columns are less than 100 
+
+# Purpose: Checking if maze rows and columns are less than 100 
+# Expectation: Error message and program terminates 
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensionRange100.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
@@ -58,7 +66,9 @@ else
 fi
 
 echo -n "Testing maze dimensions are 5 > - "
-# Checking if maze rows and columns are greater than 5
+
+# Purpose: Checking if maze rows and columns are greater than 5
+# Expectation: Error indicating maze dimensions not valid and program terminates 
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensionRange5.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
@@ -68,9 +78,11 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-# Checking if each row is the same length to form a rectangle 
-echo -n "Validity of maze dimensions, test 1 - "
 
+# Purpose: Checking if each row is the same length to form a rectangle 
+# Expectation: Error message produced and program terminates 
+
+echo -n "Validity of maze dimensions, test 1 - "
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensions1.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
@@ -91,7 +103,9 @@ else
 fi
 
 echo -n "Validity of symbols in maze file - "
-# Checking for valid symbols in the maze
+
+# Purpose: Checking for valid symbols in the maze
+# Expectation: Error produced indicating maze file contains invalid characters and program terminates 
 
 timeout 0.2s ./maze invalidMazes/incorrectData.txt > tmp
 if grep -q "Data in file is not valid" tmp;
@@ -102,8 +116,9 @@ else
 fi
 
 echo -n "Checking if no start present - "
-# Checking if each column same length 
-# need to check if line is the same
+
+# Purpose: Checking if start char in maze file 
+# Expectation: Error produced indicating invalid data present and program terminates 
 
 timeout 0.2s ./maze invalidMazes/noStart.txt > tmp
 if grep -q "Data in file is not valid" tmp;
@@ -114,8 +129,10 @@ else
 fi
 
 echo -n "Checking if no end present - "
-# Checking if each column same length 
-# need to check if line is the same
+
+
+# Purpose: Checking if end char is present in the maze 
+# Expectation: Error produced indicating invalid data present and program terminates 
 
 timeout 0.2s ./maze invalidMazes/noEnd.txt > tmp
 if grep -q "Data in file is not valid" tmp;
@@ -127,6 +144,9 @@ fi
 
 echo -n "Maze file contains data - "
 # Checking if file is not empty 
+
+# Purpose: To check if program handles an empty file correctly 
+# Expectation: Returns an erro before entering the while loop for game play so program terminates 
 
 timeout 0.2s ./maze invalidMazes/emptyMaze.txt > tmp
 if grep -q "File is empty" tmp;
@@ -143,8 +163,11 @@ echo -e "\n${PURPLE}~~ User Input Tests ~~${NC}\n"
 echo -n "Testing valid key entered for movement - "
 # Invalid key value entered for movement 
 
+# Purpose: Checking potential user input error with char for movements 
+# Expectation: Produce an error message and a try again 
+
 echo "x" | timeout 0.2s ./maze successMazes/movementMaze.txt > tmp
-if grep -q "Must be valid character" tmp;
+if grep -q "Must be valid character, try again:" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -155,8 +178,11 @@ fi
 echo -n "Testing no arguments for movement - "
 # No value entered for movement 
 
+# Purpose: Testing if user does not enter anything for movement char 
+# Expectation: Produce error message and user can enter choice again
+
 timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
-if grep -q "Must use W/w, A/a, S/s, D/d or M/m" tmp;
+if grep -q "Must use W/w, A/a, S/s, D/d or M/m, try again:" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -170,6 +196,8 @@ echo -e "\n${PURPLE}~~ Logic Tests ~~${NC}\n"
 echo -n "Invalid movement into wall - "
 # Attempting to walk through a wall 
 
+# Purpose: Testing impossible moves
+# Expectation: Produce an error message but user's position should remain the same 
 
 echo "d" | timeout 0.2s ./maze successMaze/noMoveHitWall.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
@@ -189,6 +217,10 @@ fi
 echo -n "Cheking if 'X' shown correctly when on start piece - "
 
 # Test to show X if on start piece 
+
+# Purpose: Checking if 'X' shown when on the start char 
+# Expectation: Shows user's position where S would be 
+
 echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "X #####" tmp;
 then
@@ -199,6 +231,9 @@ fi
 
 echo -n "Invalid movement out of the map - "
 # Attempting to walk off the edge of the map 
+
+# Purpose: Testing impossible moves
+# Expectation: Produce an error message but user's position should remain the same 
 
 echo "a" | timeout 0.2s ./maze successMaze/movementOutMaze.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
@@ -220,6 +255,9 @@ echo -e "\n${PURPLE}~~ Successful Tests ~~${NC}\n"
 
 echo -n "Testing file loads succesfully - "
 
+# Purpose: Scenario where file loads successfully
+# Expectation: Success message shown 
+
 timeout 0.2s ./maze successMazes/successMaze1 > tmp
 if grep -q "File loaded successfully" tmp;
 then
@@ -229,10 +267,11 @@ then
 fi
 
 
-# checking if correct move has been carried out through the nested if statements 
-# for movement cases 
 
-echo -n "Testing cases of user input (W/w) - "
+# Purpose: Checking if correct move has been carried out through the nested if statements 
+# Expectation: Move carried out and user position updated 
+
+echo -n "Testing cases of user input (w) - "
 
 echo "w" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
@@ -248,7 +287,24 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Testing cases of user input (A/a) - "
+echo -n "Testing cases of user input (W) - "
+
+echo "W" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+if grep -q "Piece moved successfully" tmp;
+then
+    timeout 0.2s echo "m" > tmp
+    if grep -q "###X###" tmp;
+    then 
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${RED}FAIL${NC}"
+    fi
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+
+echo -n "Testing cases of user input (a) - "
 
 echo "a" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
@@ -264,7 +320,24 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Testing cases of user input (S/s) - "
+echo -n "Testing cases of user input (A) - "
+
+echo "A" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+if grep -q "Piece moved successfully" tmp;
+then
+    timeout 0.2s echo "m" > tmp
+    if grep -q "##X ##" tmp;
+    then 
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${RED}FAIL${NC}"
+    fi
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+
+echo -n "Testing cases of user input (s) - "
 
 echo "s" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
@@ -280,7 +353,25 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Testing cases of user input (D/d) - "
+echo -n "Testing cases of user input (S) - "
+
+echo "S" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+if grep -q "Piece moved successfully" tmp;
+then
+    timeout 0.2s echo "m" > tmp
+    if grep -q "###X## " tmp;
+    then 
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${RED}FAIL${NC}"
+    fi
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+
+
+echo -n "Testing cases of user input (d) - "
 
 echo "d" | ./maze successMaze/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
@@ -296,7 +387,24 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Testing cases of user input (M/m) - "
+echo -n "Testing cases of user input (D) - "
+
+echo "D" | ./maze successMaze/movementMaze.txt > tmp
+if grep -q "Piece moved successfully" tmp;
+then
+    timeout 0.2s echo "m" > tmp
+    if grep -q "###  X##" tmp;
+    then 
+        echo -e "${GREEN}PASS${NC}"
+    else
+        echo -e "${RED}FAIL${NC}"
+    fi
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+
+echo -n "Testing cases of user input (m) - "
 
 echo "m" | timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
 if grep -q "#X  #" tmp;
@@ -306,7 +414,17 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
-# succesful runs of different maze formats 
+echo -n "Testing cases of user input (M) - "
+echo "M" | timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
+if grep -q "#X  #" tmp;
+then
+    echo -e "${GREEN}PASS${NC}"
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+# Purpose: Succesful runs of different maze formats 
+# Expectation: Success message shown once the end is reached 
 
 echo -n "Testing successful run (Maze 1) - "
 
@@ -325,6 +443,7 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
+
 echo -n "Testing successful run (Maze 2) - "
 
 timeout 0.2s ./maze successMazes/successMaze2.txt < successMoves/successMaze2Moves.in > tmp
@@ -341,6 +460,7 @@ then
 else
     echo -e "${RED}FAIL${NC}"
 fi
+
 
 echo -n "Testing successful run (Maze 3) - "
 
@@ -359,6 +479,7 @@ then
 else
     echo -e "${RED}FAIL${NC}"
 fi
+
 
 echo -n "Testing successful run (Maze 4) - "
 

@@ -75,6 +75,7 @@ int checkDimensions(char filename[]) {
 // counts the number of start and end pieces and produces error if there are too many or none 
 // need to store user position same as where S is present 
 // user's position must be equated to where the S 
+// might be easier to input user's 'X' into maze array when tokenising and have no S
 
 // gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
 // fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
@@ -110,7 +111,6 @@ char displayOptions() {
 */
 
 
-// function for 
 // process the string and use switch cases
 // each switch case will call the moveUser() function 
 
@@ -161,6 +161,7 @@ int movement(char userInput) {
 // will need to access maze array to print it out 
 // prints maze with user's 'X'
 
+
 void displayMaze() {
 
 }
@@ -184,7 +185,7 @@ int checkChar(char input) {
 */
 
 // uses switch statement accesses array at attempted position and uses checkPieceType() to determine if move is allowed 
-
+// calculates postion within array piece will move to then checks if piece is a wall through MAZEPIECE.iswall variable in struct 
 
 int checkMoveValidity(char userInput) {
     return 0;
@@ -203,5 +204,20 @@ int checkMoveValidity(char userInput) {
 // should be called each time player moves 
 
 int checkEnd() {
+
+    // using user's current position compare with x and y values for end position
     return 0;
+}
+
+/**
+* @brief displays success message and displays maze to the user 
+*
+*/
+
+// function called when while loop exited to show success message and display maze one last time to user 
+void displayEnd() {
+
+    // calls displayMaze()
+    // shows success message 
+    
 }

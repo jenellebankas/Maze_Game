@@ -13,6 +13,7 @@ int movement(char userInput);
 void displayMaze();
 int checkEnd();
 int checkMoveValidity(char userInput);
+void displayEnd();
 
 
 #endif

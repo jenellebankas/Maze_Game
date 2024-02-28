@@ -32,6 +32,8 @@
     - Returns boolean implemented through int type 
 - **`int checkMoveValidity(char userInput)`**
     - Return boolean implemented through int type and checks if move can be done
+- **`void displayEnd()`**
+    - Shows success message and maze to user once while loop exited in main 
     
 
 # Testing
@@ -71,9 +73,9 @@
 
 - Invalid filename: "File does not exist"
 - Too many arguments: "Too many Arguments"
-- File usage: "Usage: ./maze <filename>"
+- File usage: "Usage: ./maze '<"filename">"
 - No movement character entered: "Must use W/w, A/a, S/s, D/d or M/m"
-- Invalid character entered: "Must be valid character"
+- Invalid character entered: "Must be valid character, try again:"
 - Bad data in file: "Data in file is not valid"
 - Incorrect maze dimensions: "Maze dimensions not valid"
 - Empty file: "File is empty"
