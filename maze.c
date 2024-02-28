@@ -6,6 +6,7 @@
 // each piece has a symbol, column, row
 // boolean implemented as integers to check the type of piece 
 // will be defined as a 2D array later on in program .see tokeniseMaze()
+// user's position will also be defined as a piece but initialised separately 
 
 typedef struct {
 
@@ -13,8 +14,6 @@ typedef struct {
     int colPosition;
     char symbol;
     int isWall;
-    int isStart;
-    int isEnd;
 
 }MAZEPIECE;
 
@@ -29,8 +28,6 @@ typedef struct {
     int startPositionY;
     int endPositionX;
     int endPositionY;
-    int userStartX;
-    int userStartY;
     int rowDimension;
     int colDimension;
 
@@ -65,8 +62,6 @@ int main(int argc, char* argv[]) {
     // user option is read in from displayOptions()
     // this option is processed as seen in functionIO.c 
     
-
-
 
     return 0;
 }
