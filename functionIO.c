@@ -17,6 +17,11 @@ void openFile(char filename[]) {
     
     FILE *file = fopen(filename, "r");
 
+    if (file == NULL) {
+        printf("File does not exist");
+        exit(2);
+    }
+
     // calls checkDimensions() function before proceding to ensure that time is not wasted
 
     // while loop for each line which can be processed by tokeniseMaze() which can be called here 
@@ -215,9 +220,14 @@ int checkEnd() {
 */
 
 // function called when while loop exited to show success message and display maze one last time to user 
+
 void displayEnd() {
 
     // calls displayMaze()
     // shows success message 
+
+    displayMaze();
+    printf("Congratulations, you have reached the end of the maze!\n\n _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
+
     
 }
