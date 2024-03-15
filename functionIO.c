@@ -231,11 +231,12 @@ void displayMaze() {
 // call this in the tokeniseMaze() function as each char is tokenised 
 int checkChar(char input) {
 
-    char validMazeCharacters = {"#", "S", "E", " "};
+    char validMazeCharacters[4] = {"#", "S", "E", " "};
 
     if () {
 
     }
+    
     return 0;
 }
 
