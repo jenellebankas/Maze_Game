@@ -7,8 +7,8 @@
 
 void openFile(char filename[]);
 int checkDimensions(char filename[]);
-void tokeniseMaze(const char *line);
-char displayOptions();
+void tokeniseMaze(const char *line, const char *mazeToken);
+void displayOptions();
 int movement(char userInput);
 void displayMaze();
 int checkEnd();
