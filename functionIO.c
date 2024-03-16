@@ -8,17 +8,28 @@
 */
 
 // opens the file for manipulation
-// callse tokeniseMaze() function and checkDimensions()
+// calls tokeniseMaze() function and checkDimensions()
 
 void openFile(char filename[]) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and if it exists 
+    // error checking for the contents of the file, idea taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
     
+    int size;
+
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
         printf("File does not exist");
+        exit(2);
+    } else {
+        fseek (file, 0, SEEK_END);
+        size = ftell(file);
+    }
+
+    if (0 == size) {
+        printf("File is empty\n");
         exit(2);
     }
 
@@ -52,12 +63,12 @@ int checkDimensions(char filename[]) {
     // determine buffer size and check all lines same length 
     // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
 
-    int expectedLineLength=0; 
-    int i=0;
+    int expectedLineLength = 0; 
+    int i = 0;
     char mazeCharacter;
 
 
-    while (mazeCharacter!=EOF)
+    while (mazeCharacter != EOF)
         if ((mazeCharacter = fgetc(file)) != EOF && mazeCharacter != '\n') {
         i++; 
         } else { 
@@ -69,8 +80,10 @@ int checkDimensions(char filename[]) {
     
     // need to define line variable for the reading of the file 
     // use the expectedLineLength variable here as it will exit before if there is an issue
+    // also need a variable to temporarily store the character being processed 
 
     char line[expectedLineLength];
+    //char currentMazeChar;
 
     // counts individual characters in the row
     // has a count to count number of rows for array of struct definition
@@ -81,7 +94,7 @@ int checkDimensions(char filename[]) {
     // to read each line
     while (fgets(line, expectedLineLength, file)) {   
         // sorting the data in the file
-        tokeniseMaze(line);
+        //tokeniseMaze(line, currentMazeChar);
         
         // copy the info into the array
         // have a counter for the counting of lines 
@@ -118,17 +131,17 @@ int checkDimensions(char filename[]) {
 // gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
 // fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
 
-void tokeniseMaze(const char *line, const char *mazeToken) {
+void tokeniseMaze(const char *line, char *mazeToken) {
 
     char *inputCopy = strdup(line);
     
     // Tokenize the copied string
     // Need to tokenise based off of each element for each line 
     
-    char *token = strtok(inputCopy);
-    if (token != NULL) {        
-        strcpy(mazeToken, token);
-    }
+    //char *token = strtok(inputCopy);
+    //if (token != NULL) {        
+    //    strcpy(mazeToken, token);
+    //}
     
     // Free the duplicated string
     free(inputCopy);
@@ -231,11 +244,11 @@ void displayMaze() {
 // call this in the tokeniseMaze() function as each char is tokenised 
 int checkChar(char input) {
 
-    char validMazeCharacters[4] = {"#", "S", "E", " "};
+    //char validMazeCharacters[4] = {'#', 'S', 'E', ' '};
 
-    if () {
+    //if () {
 
-    }
+    //}
     
     return 0;
 }
@@ -250,6 +263,37 @@ int checkChar(char input) {
 // calculates postion within array piece will move to then checks if piece is a wall through MAZEPIECE.iswall variable in struct 
 
 int checkMoveValidity(char userInput) {
+
+    // ensures that user input can be processed in one format 
+    switch (toupper(userInput)) {
+        
+        case 'W':
+
+            // + 1 to y value 
+
+            break;
+
+        case 'A':
+
+            // -1 to x value
+
+            break;
+
+        case 'S':
+
+             // -1 to y value
+
+            break;
+
+        case 'D':
+
+            // +1 to x value
+
+            break;
+
+        default:
+    } 
+
     return 0;
 }
 
