@@ -1,3 +1,10 @@
+ /**
+ * @file functionIO.c
+ * @author Jenelle Bankas 
+ * @brief Code for the maze game for COMP1921 Assignment 2
+ */
+
+
 #include "functionIO.h"
 #include "defines.h"
 
@@ -34,8 +41,11 @@ void openFile(char filename[]) {
     }
 
     // calls checkDimensions() function before proceding to ensure that time is not wasted
-
+    checkDimensions();
     // while loop for each line which can be processed by tokeniseMaze() which can be called here 
+
+    tokeniseMaze();
+    
     fclose(file);
 
 
@@ -231,6 +241,28 @@ int movement(char userInput) {
 
 
 void displayMaze() {
+
+    
+    // make sure we have a leading newline..
+    printf("\n");
+    for (int i = 0; i < this->height; i++)
+    {
+        for (int j = 0; j < this->width; j++)
+        {
+            // decide whether player is on this spot or not
+            // change this bit for my for my implementation
+            if (player->x == j && player->y == i)
+            {
+                printf("X");
+            }
+            else
+            {
+                printf("%c", this->map[i][j]);
+            }
+        }
+        // end each row with a newline.
+        printf("\n");
+    }
 
 }
 

@@ -1,3 +1,10 @@
+ /**
+ * @file defines.c
+ * @author Jenelle Bankas 
+ * @brief Code for the maze game for COMP1921 Assignment 2
+ */
+
+
 #ifndef DEFINES_FILE
 #define DEFINES_FILE
 

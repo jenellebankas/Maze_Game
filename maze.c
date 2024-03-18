@@ -1,3 +1,10 @@
+ /**
+ * @file maze.c
+ * @author Jenelle Bankas 
+ * @brief Code for the maze game for COMP1921 Assignment 2
+ */
+
+
 #include "defines.h"
 #include "functionIO.h"
 
