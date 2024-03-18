@@ -41,10 +41,10 @@ void openFile(char filename[]) {
     }
 
     // calls checkDimensions() function before proceding to ensure that time is not wasted
-    checkDimensions();
-    // while loop for each line which can be processed by tokeniseMaze() which can be called here 
+    checkDimensions(filename);
 
-    tokeniseMaze();
+    // while loop for each line which can be processed by tokeniseMaze() which can be called here 
+    //tokeniseMaze();
     
     fclose(file);
 
@@ -174,11 +174,20 @@ void displayOptions() {
 
     char userChoice;
 
+
     printf("Please enter your next move: ");
     scanf("%s", &userChoice);
     
-    // will be changed when solution programmed, will return user choice 
-    movement(userChoice);
+
+    // error checking to see if no values entered or if incorrect values entered 
+
+    if (toupper(userChoice) != 'W' || 'A' || 'S' || 'D'|| 'M') {
+        printf("Must use W/w, A/a, S/s, D/d or M/m, try again:\n");
+        exit(1);
+    } else {
+        // will be changed when solution programmed, will return user choice 
+        movement(toupper(userChoice));
+    }  
 }
 
 /**
@@ -195,7 +204,7 @@ void displayOptions() {
 int movement(char userInput) {
 
     // ensures that user input can be processed in one format 
-    switch (toupper(userInput)) {
+    switch (userInput) {
         
         case 'W':
 
@@ -242,7 +251,7 @@ int movement(char userInput) {
 
 void displayMaze() {
 
-    
+    /**
     // make sure we have a leading newline..
     printf("\n");
     for (int i = 0; i < this->height; i++)
@@ -263,6 +272,7 @@ void displayMaze() {
         // end each row with a newline.
         printf("\n");
     }
+    */
 
 }
 
@@ -324,6 +334,10 @@ int checkMoveValidity(char userInput) {
             break;
 
         default:
+
+            // might need to change to ensure that a potential error message is produced 
+            return 0;
+
     } 
 
     return 0;
