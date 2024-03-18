@@ -8,6 +8,7 @@
 #include "functionIO.h"
 #include "defines.h"
 
+
 /**
 * @brief opening the maze file 
 *
@@ -17,7 +18,8 @@
 // opens the file for manipulation
 // calls tokeniseMaze() function and checkDimensions()
 
-void openFile(char filename[]) {
+
+void openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and if it exists 
@@ -41,8 +43,9 @@ void openFile(char filename[]) {
     }
 
     // calls checkDimensions() function before proceding to ensure that time is not wasted
-    checkDimensions(filename);
+    checkDimensions(filename, funcMazeInfo, funcMazePiece);
 
+    
     // while loop for each line which can be processed by tokeniseMaze() which can be called here 
     //tokeniseMaze();
     
@@ -63,7 +66,7 @@ void openFile(char filename[]) {
 // error checking for uniform column length 
 
 
-int checkDimensions(char filename[]) {
+int checkDimensions(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 
     // variables declared here to keep track of expected row and column length based off of first line needed
 
@@ -80,12 +83,11 @@ int checkDimensions(char filename[]) {
 
     while (mazeCharacter != EOF)
         if ((mazeCharacter = fgetc(file)) != EOF && mazeCharacter != '\n') {
-        i++; 
-        } else { 
-            if (i != expectedLineLength) {
-                printf("Data in file is not valid\n");
-                return 3;
-            }
+            i++; 
+            expectedLineLength = i;
+        } else if (i != expectedLineLength){ 
+            printf("Data in file is not valid\n");
+            return 3;
         }
     
     // need to define line variable for the reading of the file 
@@ -111,6 +113,7 @@ int checkDimensions(char filename[]) {
         counter++;
     }
 
+    
     
 
     // error checking done before this declaration 
@@ -183,7 +186,7 @@ void displayOptions() {
 
     if (toupper(userChoice) != 'W' || 'A' || 'S' || 'D'|| 'M') {
         printf("Must use W/w, A/a, S/s, D/d or M/m, try again:\n");
-        exit(1);
+        
     } else {
         // will be changed when solution programmed, will return user choice 
         movement(toupper(userChoice));
@@ -201,38 +204,38 @@ void displayOptions() {
 // process the string and use switch cases
 // each switch case will call the moveUser() function 
 
-int movement(char userInput) {
+int movement(char userInput, Coord *currentPos) {
 
     // ensures that user input can be processed in one format 
     switch (userInput) {
         
         case 'W':
 
-            checkMoveValidity(toupper(userInput));
+            checkMoveValidity(toupper(userInput), currentPos);
             break;
 
         case 'A':
 
-            checkMoveValidity(toupper(userInput));
+            checkMoveValidity(toupper(userInput), currentPos);
             break;
 
         case 'S':
 
-            checkMoveValidity(toupper(userInput));
+            checkMoveValidity(toupper(userInput), currentPos);
             break;
 
         case 'D':
 
-            checkMoveValidity(toupper(userInput));
+            checkMoveValidity(toupper(userInput), currentPos);
             break;
 
         case 'M':
 
-            displayMaze();
+            displayMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece);
             break;
 
         default:
-            printf("Must use W/w, A/a, S/s, D/d or M/m");
+            printf("Must use W/w, A/a, S/s, D/d or M/m, try again:\n");
     } 
 
     return 0;
@@ -249,7 +252,7 @@ int movement(char userInput) {
 // prints maze with user's 'X'
 
 
-void displayMaze() {
+void displayMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 
     /**
     // make sure we have a leading newline..
@@ -304,7 +307,7 @@ int checkChar(char input) {
 // uses switch statement accesses array at attempted position and uses checkPieceType() to determine if move is allowed 
 // calculates postion within array piece will move to then checks if piece is a wall through MAZEPIECE.iswall variable in struct 
 
-int checkMoveValidity(char userInput) {
+int checkMoveValidity(char userInput, Coord *currentPos) {
 
     // ensures that user input can be processed in one format 
     switch (toupper(userInput)) {
