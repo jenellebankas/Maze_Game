@@ -13,9 +13,8 @@ int main(int argc, char* argv[]) {
 
     // uncomment coordinate variable once done 
 
-    MazePiece *maze = malloc(sizeof(MazePiece));
     MazeInfo *mazeInfo = malloc(sizeof(MazeInfo));
-    //Coord *playerCoord;
+    Coord *playerCoord = malloc(sizeof(Coord));
 
     // error checking for command line arguments done first
     // error checking for an empty file done before entering the loop so in the openFile() function
@@ -33,7 +32,7 @@ int main(int argc, char* argv[]) {
     }
 
 
-    openFile(argv[1], mazeInfo, maze);
+    openFile(argv[1], mazeInfo);
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
     // the user then plays the game until they reach the end 
@@ -42,13 +41,14 @@ int main(int argc, char* argv[]) {
 
     // once while loop is exited, displayEnd() is called to show the user a success message 
 
-    while (!checkEnd()) {
+    while (!checkEnd(playerCoord, mazeInfo)) {
 
-        displayOptions();
+        displayOptions(playerCoord, mazeInfo);
         
     }
 
     // free memory 
+    // return correct value 
 
     exit(EXIT_SUCCESS);
     

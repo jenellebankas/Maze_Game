@@ -4,162 +4,8 @@
  * @brief Code for the maze game for COMP1921 Assignment 2
  */
 
-
 #include "functionIO.h"
 #include "defines.h"
-
-
-/**
-* @brief opening the maze file 
-*
-* @param filename from command arguments taken in from main()
-*/
-
-// opens the file for manipulation
-// calls tokeniseMaze() function and checkDimensions()
-
-
-void openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
-    
-    // open the file specified by users argument and need to check if this is initialised correctly 
-    // error checking for the filename and if it exists 
-    // error checking for the contents of the file, idea taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
-    
-    int size;
-
-    FILE *file = fopen(filename, "r");
-
-    if (file == NULL) {
-        printf("File does not exist");
-        exit(2);
-    } else {
-        fseek (file, 0, SEEK_END);
-        size = ftell(file);
-    }
-
-    if (0 == size) {
-        printf("File is empty\n");
-        exit(2);
-    }
-
-    // calls checkDimensions() function before proceding to ensure that time is not wasted
-    checkDimensions(filename, funcMazeInfo, funcMazePiece);
-
-    
-    // while loop for each line which can be processed by tokeniseMaze() which can be called here 
-    //tokeniseMaze();
-    
-    fclose(file);
-
-
-}
-
-
-/**
-* @brief process characters within the maze file and sort into the given array
-*
-* @param filename from the user 
-* @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
-*/
-
-// error checking for the uniform row length 
-// error checking for uniform column length 
-
-
-int checkDimensions(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
-
-    // variables declared here to keep track of expected row and column length based off of first line needed
-
-    // open the file to allow dimensions to be checked 
-    FILE *file = fopen(filename, "r");
-
-    // determine buffer size and check all lines same length 
-    // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
-
-    int expectedLineLength = 0; 
-    int i = 0;
-    char mazeCharacter;
-
-
-    while (mazeCharacter != EOF)
-        if ((mazeCharacter = fgetc(file)) != EOF && mazeCharacter != '\n') {
-            i++; 
-            expectedLineLength = i;
-        } else if (i != expectedLineLength){ 
-            printf("Data in file is not valid\n");
-            return 3;
-        }
-    
-    // need to define line variable for the reading of the file 
-    // use the expectedLineLength variable here as it will exit before if there is an issue
-    // also need a variable to temporarily store the character being processed 
-
-    char line[expectedLineLength];
-    //char currentMazeChar;
-
-    // counts individual characters in the row
-    // has a count to count number of rows for array of struct definition
-    // index through the line 
-    // while the char is not \n
-
-    int counter = 0;
-    // to read each line
-    while (fgets(line, expectedLineLength, file)) {   
-        // sorting the data in the file
-        //tokeniseMaze(line, currentMazeChar);
-        
-        // copy the info into the array
-        // have a counter for the counting of lines 
-        counter++;
-    }
-
-    
-    
-
-    // error checking done before this declaration 
-    // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
-    // dynamically allocate memory for the size of the 2D array 
-
-    
-    fclose(file);
-    // placeholder return until function is fully programmed 
-    return 0;
-
-}
-
-/**
-* @brief input values for rows and columns and changes MAZEINFO instance of struct and adds to MAZEPIECE 2D array 
-* @param line is used to be iterated over and characters tokenised 
-*/
-
-
-
-// error checking for the different types of char entered and if they are valid 
-
-// counts the number of start and end pieces and produces error if there are too many or none 
-// need to store user position same as where S is present 
-// user's position must be equated to where the S 
-// might be easier to input user's 'X' into maze array when tokenising and have no S
-
-// gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
-// fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
-
-void tokeniseMaze(const char *line, char *mazeToken) {
-
-    char *inputCopy = strdup(line);
-    
-    // Tokenize the copied string
-    // Need to tokenise based off of each element for each line 
-    
-    //char *token = strtok(inputCopy);
-    //if (token != NULL) {        
-    //    strcpy(mazeToken, token);
-    //}
-    
-    // Free the duplicated string
-    free(inputCopy);
-
-}
 
 
 /**
@@ -173,13 +19,13 @@ void tokeniseMaze(const char *line, char *mazeToken) {
 // checks if user input is a valid character
 
 
-void displayOptions() {
+void displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     char userChoice;
 
 
     printf("Please enter your next move: ");
-    scanf("%s", &userChoice);
+    int checkChar = scanf("%s", &userChoice);
     
 
     // error checking to see if no values entered or if incorrect values entered 
@@ -189,7 +35,15 @@ void displayOptions() {
         
     } else {
         // will be changed when solution programmed, will return user choice 
-        movement(toupper(userChoice));
+        movement(toupper(userChoice), currentPos, funcMazeInfo);
+    }  
+
+    if (checkChar != 1) {
+        printf("Must use W/w, A/a, S/s, D/d or M/m, try again:\n");
+        
+    } else {
+        // will be changed when solution programmed, will return user choice 
+        movement(toupper(userChoice), currentPos, funcMazeInfo);
     }  
 }
 
@@ -204,34 +58,34 @@ void displayOptions() {
 // process the string and use switch cases
 // each switch case will call the moveUser() function 
 
-int movement(char userInput, Coord *currentPos) {
+int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // ensures that user input can be processed in one format 
     switch (userInput) {
         
         case 'W':
 
-            checkMoveValidity(toupper(userInput), currentPos);
+            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
             break;
 
         case 'A':
 
-            checkMoveValidity(toupper(userInput), currentPos);
+            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
             break;
 
         case 'S':
 
-            checkMoveValidity(toupper(userInput), currentPos);
+            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
             break;
 
         case 'D':
 
-            checkMoveValidity(toupper(userInput), currentPos);
+            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
             break;
 
         case 'M':
 
-            displayMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece);
+            displayMaze(currentPos, funcMazeInfo);
             break;
 
         default:
@@ -252,30 +106,30 @@ int movement(char userInput, Coord *currentPos) {
 // prints maze with user's 'X'
 
 
-void displayMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
+void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
-    /**
+    
     // make sure we have a leading newline..
     printf("\n");
-    for (int i = 0; i < this->height; i++)
+    for (int i = 0; i < funcMazeInfo->rowDimension; i++)
     {
-        for (int j = 0; j < this->width; j++)
+        for (int j = 0; j < funcMazeInfo->colDimension; j++)
         {
             // decide whether player is on this spot or not
             // change this bit for my for my implementation
-            if (player->x == j && player->y == i)
+            if (currentPos->x == j && currentPos->y == i)
             {
                 printf("X");
             }
             else
             {
-                printf("%c", this->map[i][j]);
+                printf("%c", funcMazeInfo->maze[i][j].symbol);
             }
         }
         // end each row with a newline.
         printf("\n");
     }
-    */
+    
 
 }
 
@@ -307,7 +161,7 @@ int checkChar(char input) {
 // uses switch statement accesses array at attempted position and uses checkPieceType() to determine if move is allowed 
 // calculates postion within array piece will move to then checks if piece is a wall through MAZEPIECE.iswall variable in struct 
 
-int checkMoveValidity(char userInput, Coord *currentPos) {
+int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // ensures that user input can be processed in one format 
     switch (toupper(userInput)) {
@@ -358,7 +212,7 @@ int checkMoveValidity(char userInput, Coord *currentPos) {
 // implemented as a while loop in the game play 
 // should be called each time player moves 
 
-int checkEnd() {
+int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // using user's current position compare with x and y values for end position
     return 0;
@@ -371,13 +225,18 @@ int checkEnd() {
 
 // function called when while loop exited to show success message and display maze one last time to user 
 
-void displayEnd() {
+void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // calls displayMaze()
     // shows success message 
 
-    displayMaze();
+    displayMaze(currentPos, funcMazeInfo);
     printf("Congratulations, you have reached the end of the maze!\n\n _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
-
     
+}
+
+
+void freeMaze(MazeInfo *funcMazeInfo) {
+
+
 }

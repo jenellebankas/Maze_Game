@@ -497,5 +497,7 @@ else
     echo -e "${RED}FAIL${NC}"
 fi
 
+echo 
+
 # Removal of the tmp file at the end of test completion 
 rm -f tmp

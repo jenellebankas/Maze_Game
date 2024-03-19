@@ -43,6 +43,7 @@ typedef struct {
 
 typedef struct {
 
+    MazePiece **maze;
     Coord startPosition;
     Coord endPosition;
     int rowDimension;
@@ -50,4 +51,8 @@ typedef struct {
 
 } MazeInfo;
 
+// for initialising the mazepiece will use this later at some point 
+// MazePiece *mazenfkj = malloc(sizeof(MazePiece))
+
+// need to free everything look at struct pointers thing and reference 
 #endif

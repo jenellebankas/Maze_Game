@@ -22,15 +22,17 @@
 
 // forward definitions
 
-void openFile(char filename[], MazeInfo *mazeInfo, MazePiece *maze);
-int checkDimensions(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece);
-void tokeniseMaze(const char *line, char *mazeToken);
-void displayOptions();
-int movement(char userInput, Coord *currentPos);
-void displayMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece);
-int checkEnd();
-int checkMoveValidity(char userInput, Coord *currentPos);
-void displayEnd();
+void openFile(char filename[], MazeInfo *mazeInfo);
+int checkRowDimensions(FILE *file);
+int checkColDimensions(FILE *file);
+int tokeniseMaze(const char *line, char *mazeToken);
+void displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo);
+int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo);
+void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo);
+int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo);
+int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo);
+void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo);
+void freeMaze(MazeInfo *funcMazeInfo);
 
 
 #endif
