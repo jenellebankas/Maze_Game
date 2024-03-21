@@ -114,7 +114,21 @@ int checkRowDimensions(FILE *file) {
     return 0;
 }
 
+// taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
+
 int createMaze(MazeInfo *maze) {
+
+      maze->mazeMap = malloc(maze->rowDimension * sizeof(MazeInfo));
+    for (int i = 0; i < maze->rowDimension; i++)
+    {
+        maze->mazeMap[i] = malloc(maze->colDimension * sizeof(MazeInfo));
+    }
+    if (!maze->mazeMap)
+    {
+        printf("Error: malloc failed\n");
+        return EXIT_OTHER_ERROR;
+    }
+    return 0;
     
 }
 

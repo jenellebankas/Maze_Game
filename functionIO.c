@@ -23,7 +23,6 @@ void displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     char userChoice;
 
-
     printf("Please enter your next move: ");
     int checkChar = scanf("%s", &userChoice);
     
@@ -123,7 +122,7 @@ void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
             }
             else
             {
-                printf("%c", funcMazeInfo->maze[i][j].symbol);
+                printf("%c", funcMazeInfo->mazeMap[i][j].symbol);
             }
         }
         // end each row with a newline.
@@ -235,8 +234,25 @@ void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
     
 }
 
+// taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
 
 void freeMaze(MazeInfo *funcMazeInfo) {
 
+    // always check it isn't already null - you will segfault.
+    if (funcMazeInfo == NULL) {
+        return EXIT_OTHER_ERROR;
+    }
+
+    if (funcMazeInfo->mazeMap != NULL) {
+        for (int i = 0; i < funcMazeInfo->rowDimension; i++) {
+            free(funcMazeInfo->mazeMap[i]);
+            // we set each pointer to NULL after freeing
+            funcMazeInfo->mazeMap[i] = NULL;
+        }
+
+        // Free array of row pointers
+        free(funcMazeInfo->mazeMap);
+        funcMazeInfo->mazeMap = NULL;
+    }
 
 }
