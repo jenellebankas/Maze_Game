@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
     MazeInfo *mazeInfo = malloc(sizeof(MazeInfo));
     Coord *playerCoord = malloc(sizeof(Coord));
 
+
     // error checking for command line arguments done first
     // error checking for an empty file done before entering the loop so in the openFile() function
 
@@ -31,6 +32,9 @@ int main(int argc, char* argv[]) {
         printf("\nNavigate through the maze by:\n\nW/w - Up\nA/a - Right\nS/s - Down\nD/d - Left\nIf you want to see your current position within the maze please enter M/m.\nA congratulatory message once you complete the maze, please note that your maze may not always be solvable!\n\n");
     }
 
+
+    // program not making to this line so something wrong above??
+    //stuck in infinite loop?
 
     openFile(argv[1], mazeInfo);
 
@@ -50,6 +54,7 @@ int main(int argc, char* argv[]) {
     // free memory 
     // return correct value 
 
+    freeMaze(mazeInfo);
     exit(EXIT_SUCCESS);
     
 }

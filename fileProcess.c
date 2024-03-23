@@ -25,7 +25,7 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
         printf("File does not exist");
         exit(2);
     } else {
-        fseek (file, 0, SEEK_END);
+        fseek(file, 0, SEEK_END);
         size = ftell(file);
     }
 
@@ -35,9 +35,14 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
     }
 
     // calls checkDimensions() function before proceding to ensure that time is not wasted
-    //checkRowDimensions(file);
-    //checkColDimensions(file);
+    int rowLength = checkRowDimensions(file);
+    int colLength = checkColDimensions(file);
 
+
+    funcMazeInfo->rowDimension = rowLength;
+    funcMazeInfo->colDimension = colLength;
+
+    allocateMaze(funcMazeInfo);
     
     // while loop for each line which can be processed by tokeniseMaze() which can be called here 
     //tokeniseMaze();
@@ -45,6 +50,22 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
     fclose(file);
 
 
+}
+
+// taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
+
+int allocateMaze(MazeInfo *funcMazeInfo) {
+
+    funcMazeInfo->mazeMap = malloc(funcMazeInfo->rowDimension * sizeof(MazeInfo));
+    for (int i = 0; i < funcMazeInfo->rowDimension; i++) {
+        funcMazeInfo->mazeMap[i] = malloc(funcMazeInfo->colDimension * sizeof(MazeInfo));
+    }
+    if (!funcMazeInfo->mazeMap) {
+        printf("Error: malloc failed\n");
+        return 3;
+    }
+    return 0;
+    
 }
 
 
@@ -114,23 +135,6 @@ int checkRowDimensions(FILE *file) {
     return 0;
 }
 
-// taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
-
-int createMaze(MazeInfo *maze) {
-
-      maze->mazeMap = malloc(maze->rowDimension * sizeof(MazeInfo));
-    for (int i = 0; i < maze->rowDimension; i++)
-    {
-        maze->mazeMap[i] = malloc(maze->colDimension * sizeof(MazeInfo));
-    }
-    if (!maze->mazeMap)
-    {
-        printf("Error: malloc failed\n");
-        return EXIT_OTHER_ERROR;
-    }
-    return 0;
-    
-}
 
 /**
 * @brief process characters within the maze file and sort into the given array
@@ -160,7 +164,7 @@ int checkColDimensions(FILE *file) {
             expectedLineLength = i;
         } else if (i != expectedLineLength){ 
             printf("Data in file is not valid\n");
-            return 3;
+            return EXIT_MAZE_ERROR;
         }
     
     // need to define line variable for the reading of the file 

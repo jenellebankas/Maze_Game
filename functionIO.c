@@ -110,18 +110,13 @@ void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
     
     // make sure we have a leading newline..
     printf("\n");
-    for (int i = 0; i < funcMazeInfo->rowDimension; i++)
-    {
-        for (int j = 0; j < funcMazeInfo->colDimension; j++)
-        {
+    for (int i = 0; i < funcMazeInfo->rowDimension; i++) {
+        for (int j = 0; j < funcMazeInfo->colDimension; j++) {
             // decide whether player is on this spot or not
             // change this bit for my for my implementation
-            if (currentPos->x == j && currentPos->y == i)
-            {
+            if (currentPos->x == j && currentPos->y == i) {
                 printf("X");
-            }
-            else
-            {
+            } else {
                 printf("%c", funcMazeInfo->mazeMap[i][j].symbol);
             }
         }
@@ -168,24 +163,29 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
         case 'W':
 
             // + 1 to y value 
+            // see if that piece is a wall in the 2D struct 
 
             break;
 
         case 'A':
 
             // -1 to x value
+            // see if that piece is a wall in the 2D struct 
+
 
             break;
 
         case 'S':
 
-             // -1 to y value
+            // -1 to y value
+            // see if that piece is a wall in the 2D struct 
 
             break;
 
         case 'D':
 
             // +1 to x value
+            // see if that piece is a wall in the 2D struct 
 
             break;
 
@@ -254,5 +254,7 @@ void freeMaze(MazeInfo *funcMazeInfo) {
         free(funcMazeInfo->mazeMap);
         funcMazeInfo->mazeMap = NULL;
     }
+
+    free(funcMazeInfo);
 
 }

@@ -24,6 +24,9 @@ int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo);
 int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo);
 void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo);
 void freeMaze(MazeInfo *funcMazeInfo);
+int allocateMaze(MazeInfo *funcMazeInfo);
+
+
 
 
 #endif
