@@ -69,7 +69,6 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
     
     fclose(file);
 
-
 }
 
 // taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
@@ -124,10 +123,6 @@ int checkRowDimensions(FILE *file) {
     // use the expectedLineLength variable here as it will exit before if there is an issue
     // also need a variable to temporarily store the character being processed 
     return i;
-    
-
-    
-    
 
     // error checking done before this declaration 
     // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
@@ -170,6 +165,10 @@ int checkColDimensions(FILE *file) {
             return EXIT_MAZE_ERROR;
         }
     
+    if (expectedLineLength < 5 || expectedLineLength > 100) {
+        return EXIT_MAZE_ERROR;
+    }
+    
     // need to define line variable for the reading of the file 
     // use the expectedLineLength variable here as it will exit before if there is an issue
     // also need a variable to temporarily store the character being processed 
@@ -187,7 +186,7 @@ int checkColDimensions(FILE *file) {
 
     
     // placeholder return until function is fully programmed 
-    return 0;
+    return expectedLineLength;
 
 }
 
