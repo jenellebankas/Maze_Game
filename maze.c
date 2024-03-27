@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
         printf("Too many arguments\n");
         exit(1);
     } else if (argc < 2){
-        printf("Usage: ./maze <filename>");
+        printf("Usage: ./maze <filename>\n");
         exit(1);
     } else {
         // basic game explaination printed before the while loop starts 

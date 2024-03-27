@@ -56,16 +56,6 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
     // index through the line 
     // while the char is not \n
 
-    int counter = 0;
-    // to read each line
-    while (fgets(line, expectedLineLength, file)) {   
-        // sorting the data in the file
-        //tokeniseMaze(line, currentMazeChar);
-        
-        // copy the info into the array
-        // have a counter for the counting of lines 
-        counter++;
-    }
     
     fclose(file);
 
@@ -103,26 +93,25 @@ int checkRowDimensions(FILE *file) {
 
     // determine buffer size and check all lines same length 
     // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
-
     
-    int i = 0;
-    char mazeCharacter;
-    int expectedLineLength = 0; 
-
-
-    while (mazeCharacter != EOF)
-        if ((mazeCharacter = fgetc(file)) != EOF && mazeCharacter != '\n') {
-            i++; 
-            expectedLineLength = i;
-        } else if (i != expectedLineLength){ 
-            printf("Data in file is not valid\n");
-            return 3;
-        }
     
     // need to define line variable for the reading of the file 
     // use the expectedLineLength variable here as it will exit before if there is an issue
     // also need a variable to temporarily store the character being processed 
-    return i;
+
+
+    int counter = 0;
+    // to read each line
+    while (fgets(line, expectedLineLength, file)) {   
+        // sorting the data in the file
+        //tokeniseMaze(line, currentMazeChar);
+        
+        // copy the info into the array
+        // have a counter for the counting of lines 
+        counter++;
+    }
+    
+    return counter;
 
     // error checking done before this declaration 
     // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension

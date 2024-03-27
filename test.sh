@@ -167,7 +167,7 @@ echo -n "Testing valid key entered for movement - "
 # Expectation: Produce an error message and a try again 
 
 echo "x" | timeout 0.2s ./maze successMazes/movementMaze.txt > tmp
-if grep -q "Must use W/w, A/a, S/s, D/d or M/m, try again:" tmp;
+if grep -q "Must be valid character, try again." tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -182,7 +182,7 @@ echo -n "Testing no arguments for movement - "
 # Expectation: Produce error message and user can enter choice again
 
 echo | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
-if grep -q "Must use W/w, A/a, S/s, D/d or M/m, try again:" tmp;
+if grep -q "Must use W/w, A/a, S/s, D/d or M/m, try again." tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else

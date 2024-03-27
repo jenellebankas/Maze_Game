@@ -23,7 +23,7 @@
 #define EXIT_ARG_ERROR 1
 #define EXIT_FILE_ERROR 2
 #define EXIT_MAZE_ERROR 3
-#define EXIT_OTHER_ERROR
+
 
 typedef struct {
 
