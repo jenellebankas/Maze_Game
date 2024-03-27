@@ -11,20 +11,22 @@
 // calls tokeniseMaze() function and checkDimensions()
 
 
-void openFile(char filename[], MazeInfo *funcMazeInfo) {
+int openFile(char filename[], MazeInfo *funcMazeInfo) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and if it exists 
     // error checking for the contents of the file, idea taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
     
     int size;
-    int expectedLineLength = 0; 
+    //int expectedLineLength = 0; 
 
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
         printf("File does not exist");
         exit(2);
+        return 2;
+
     } else {
         fseek(file, 0, SEEK_END);
         size = ftell(file);
@@ -33,8 +35,10 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
     if (0 == size) {
         printf("File is empty\n");
         exit(2);
+        return 2;
     }
 
+    // something wrong with checkDimensions() functions, don't know yet tho???
     // calls checkDimensions() function before proceding to ensure that time is not wasted
     int rowLength = checkRowDimensions(file);
     int colLength = checkColDimensions(file);
@@ -48,7 +52,7 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
     // while loop for each line which can be processed by tokeniseMaze() which can be called here 
     //tokeniseMaze();
 
-    char line[rowLength];
+    //char line[rowLength];
     //char currentMazeChar;
 
     // counts individual characters in the row
@@ -58,6 +62,7 @@ void openFile(char filename[], MazeInfo *funcMazeInfo) {
 
     
     fclose(file);
+    return 0;
 
 }
 
@@ -94,24 +99,32 @@ int checkRowDimensions(FILE *file) {
     // determine buffer size and check all lines same length 
     // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
     
-    
+    int buffer = 100;
+    char line[buffer];
+
     // need to define line variable for the reading of the file 
     // use the expectedLineLength variable here as it will exit before if there is an issue
     // also need a variable to temporarily store the character being processed 
-
-
-    int counter = 0;
+    int length = strlen(fgets(line, buffer, file)) - 1;
+    
     // to read each line
-    while (fgets(line, expectedLineLength, file)) {   
+    while (fgets(line, buffer, file)) {   
         // sorting the data in the file
         //tokeniseMaze(line, currentMazeChar);
-        
-        // copy the info into the array
-        // have a counter for the counting of lines 
-        counter++;
+        if ((strlen(line) - 1) != length) {
+            printf("Data in file is not valid\n");
+            return 3;
     }
     
-    return counter;
+    if (length < 5 || length > 100) {
+
+        printf("Maze dimensions not valid");
+        return 2;
+    }
+
+    }
+
+    return length;
 
     // error checking done before this declaration 
     // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
@@ -158,6 +171,10 @@ int checkColDimensions(FILE *file) {
         return EXIT_MAZE_ERROR;
     }
     
+    
+        // copy the info into the array
+        // have a counter for the counting of lines 
+        //counter++;
     // need to define line variable for the reading of the file 
     // use the expectedLineLength variable here as it will exit before if there is an issue
     // also need a variable to temporarily store the character being processed 
@@ -176,7 +193,7 @@ int checkColDimensions(FILE *file) {
     
     // placeholder return until function is fully programmed 
     return expectedLineLength;
-
+    
 }
 
 /**

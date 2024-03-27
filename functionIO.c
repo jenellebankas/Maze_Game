@@ -158,7 +158,7 @@ int checkChar(char input) {
 int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
     
     // need a temporary value for checking movement and only need single value as only one value can change at a time 
-    int tempPos = 0;
+    //int tempPos = 0;
 
     // ensures that user input can be processed in one format 
     switch (toupper(userInput)) {

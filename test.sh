@@ -95,7 +95,7 @@ fi
 echo -n "Validity of maze dimensions, test 2 - "
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensions2.txt > tmp
-if grep -q "Data in file is not valid" tmp;
+if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else

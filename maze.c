@@ -36,7 +36,11 @@ int main(int argc, char* argv[]) {
     // program not making to this line so something wrong above??
     //stuck in infinite loop?
 
-    openFile(argv[1], mazeInfo);
+    int fileOpens = openFile(argv[1], mazeInfo);
+
+    if (fileOpens != 0) {
+        return fileOpens;
+    }
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
     // the user then plays the game until they reach the end 
@@ -56,6 +60,7 @@ int main(int argc, char* argv[]) {
 
     freeMaze(mazeInfo);
     exit(EXIT_SUCCESS);
+    return 0;
     
 }
 

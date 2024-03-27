@@ -13,7 +13,7 @@
 
 // forward definitions
 
-void openFile(char filename[], MazeInfo *mazeInfo);
+int openFile(char filename[], MazeInfo *mazeInfo);
 int checkRowDimensions(FILE *file);
 int checkColDimensions(FILE *file);
 int tokeniseMaze(const char *line, char *mazeToken);
