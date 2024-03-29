@@ -106,7 +106,8 @@ int checkRowDimensions(FILE *file) {
     // use the expectedLineLength variable here as it will exit before if there is an issue
     // also need a variable to temporarily store the character being processed 
     int length = strlen(fgets(line, buffer, file)) - 1;
-    
+    length = length - 1;
+    /**
     // to read each line
     while (fgets(line, buffer, file)) {   
         // sorting the data in the file
@@ -123,8 +124,11 @@ int checkRowDimensions(FILE *file) {
     }
 
     }
+    
 
     return length;
+
+    */
 
     // error checking done before this declaration 
     // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
