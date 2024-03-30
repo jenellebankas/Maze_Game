@@ -137,11 +137,27 @@ void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
 // call this in the tokeniseMaze() function as each char is tokenised 
 int checkChar(char input) {
 
-    //char validMazeCharacters[4] = {'#', 'S', 'E', ' '};
+    // use switch case to check if value is valid 
 
-    //if () {
+    switch (input) {
 
-    //}
+        case '#':
+            return 0;
+
+        case ' ':
+            return 0;
+
+        case 'E':
+            return 0;
+
+        case 'S':
+            return 0;
+
+        default:
+            return 1;
+            exit(3);
+
+    }
     
     return 0;
 }
@@ -231,6 +247,10 @@ void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // calls displayMaze()
     // shows success message 
+
+    if ((currentPos-> x == funcMazeInfo->endPosition->x) && (currentPos->x == funcMazeInfo->endPosition->y)) [
+        return 0;
+    ]
 
     displayMaze(currentPos, funcMazeInfo);
     printf("Congratulations, you have reached the end of the maze!\n\n _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );

@@ -217,7 +217,7 @@ int checkColDimensions(FILE *file) {
 // gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
 // fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
 
-int tokeniseMaze(const char *line, char *mazeToken) {
+int tokeniseMaze(const char *line, char *mazeToken, MazeInfo *funcMazeInfo) {
 
     char *inputCopy = strdup(line);
     
