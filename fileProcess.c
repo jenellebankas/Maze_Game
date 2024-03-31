@@ -28,7 +28,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
         fclose(file);
         return 2;
     } 
-
+    
     fseek(file, 0, SEEK_END);
     size = ftell(file);
     
@@ -62,13 +62,12 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
     // while loop for each line which can be processed by tokeniseMaze() which can be called here 
     //tokeniseMaze();
 
-    //char line[rowLength];
-    //char currentMazeChar;
+    char line[rowLength];
+    char currentMazeChar;
 
-    // counts individual characters in the row
-    // has a count to count number of rows for array of struct definition
-    // index through the line 
-    // while the char is not \n
+    while (fgets(line, buffer, file)) {
+        tokeniseMaze();
+    }
 
     
     fclose(file);
@@ -108,7 +107,6 @@ int checkRowDimensions(FILE *file) {
     // determine buffer size and check all lines same length 
     // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
 
-
     int buffer = 1000;
     char line[buffer];
     int counter = 0;
@@ -120,9 +118,8 @@ int checkRowDimensions(FILE *file) {
     if (counter < 5 || counter > 100) {
         printf("Maze row dimensions not valid\n");
         return 3;
-    } else {
-        return counter;
-    } 
+    }
+    return counter;  
 }
 
 
@@ -147,7 +144,7 @@ int checkColDimensions(FILE *file) {
     while ((d = fgetc(file)) != EOF && d != '\n') {
         expectedLineLength++;
     }
-    
+
     while (c != EOF) { 
         if ((c = fgetc(file)) != EOF && c != '\n') {
             i++;
@@ -163,9 +160,8 @@ int checkColDimensions(FILE *file) {
     if (expectedLineLength < 5 || expectedLineLength > 100) {
         printf("Maze column dimensions not valid\n");
         return 3;
-    } else {
-        return expectedLineLength;
     }
+    return expectedLineLength;
 }
 
 
