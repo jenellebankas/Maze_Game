@@ -59,32 +59,66 @@ int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
 int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
+    int checkValue = 0;
     // ensures that user input can be processed in one format 
     switch (userInput) {
         
         case 'W':
 
-            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+            checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+
+            if (checkValue == 2) {
+                return 1;
+            } else {
+                currentPos->y++;
+                return 0;
+            }
+
             break;
 
         case 'A':
 
-            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+            checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+
+            if (checkValue == 2) {
+                return 1;
+            } else {
+                currentPos->x--;
+                return 0;
+            }
+
             break;
 
         case 'S':
 
-            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+            checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+
+            if (checkValue == 2) {
+                return 1;
+            } else {
+                currentPos->y--;
+                return 0;
+            }
+
             break;
 
         case 'D':
 
-            checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+            checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
+
+            if (checkValue == 2) {
+                return 1;
+            } else {
+                currentPos->x++;
+                return 0;
+            }
+
             break;
 
         case 'M':
 
             displayMaze(currentPos, funcMazeInfo);
+            return 0;
             break;
 
         default:
@@ -143,20 +177,23 @@ int checkChar(char input) {
 
         case '#':
             return 0;
+            break;
 
         case ' ':
             return 0;
+            break;
 
         case 'E':
             return 0;
+            break;
 
         case 'S':
             return 0;
+            break;
 
         default:
             return 1;
-            exit(3);
-
+            exit(1);
     }
     
     return 0;
@@ -173,17 +210,29 @@ int checkChar(char input) {
 
 int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
     
+    // need to also check if value out of bounds 
+
+    
     // need a temporary value for checking movement and only need single value as only one value can change at a time 
-    //int tempPos = 0;
+    int tempPosx = 0;
+    int tempPosy = 0;
 
     // ensures that user input can be processed in one format 
     switch (toupper(userInput)) {
         
+        // + 1 to y value 
+        // see if that piece is a wall in the 2D struct 
         case 'W':
-            
-            // + 1 to y value 
-            // see if that piece is a wall in the 2D struct 
 
+            tempPosx = currentPos->x;
+            tempPosy = currentPos->y + 1;
+
+            if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
+                return 1;
+            } else {
+                return 0;
+            }
+        
             break;
 
         case 'A':
@@ -191,6 +240,14 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             // -1 to x value
             // see if that piece is a wall in the 2D struct 
 
+            tempPosx = currentPos->x - 1;
+            tempPosy = currentPos->y;
+
+            if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
+                return 1;
+            } else {
+                return 0;
+            }
 
             break;
 
@@ -199,6 +256,15 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             // -1 to y value
             // see if that piece is a wall in the 2D struct 
 
+            tempPosx = currentPos->x;
+            tempPosy = currentPos->y - 1;
+
+            if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
+                return 1;
+            } else {
+                return 0;
+            }
+
             break;
 
         case 'D':
@@ -206,12 +272,21 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             // +1 to x value
             // see if that piece is a wall in the 2D struct 
 
+            tempPosx = currentPos->x + 1;
+            tempPosy = currentPos->y;
+
+            if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
+                return 1;
+            } else {
+                return 0;
+            }
+
             break;
 
         default:
 
             // might need to change to ensure that a potential error message is produced 
-            return 0;
+            return 2;
 
     } 
 
@@ -233,7 +308,11 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
 int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // using user's current position compare with x and y values for end position
-    return 0;
+    if ((currentPos->x == funcMazeInfo->endPosition.x) && (currentPos->y == funcMazeInfo->endPosition.y)) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 /**
@@ -247,10 +326,6 @@ void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // calls displayMaze()
     // shows success message 
-
-    if ((currentPos-> x == funcMazeInfo->endPosition->x) && (currentPos->x == funcMazeInfo->endPosition->y)) [
-        return 0;
-    ]
 
     displayMaze(currentPos, funcMazeInfo);
     printf("Congratulations, you have reached the end of the maze!\n\n _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );

@@ -15,34 +15,44 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and if it exists 
-    // error checking for the contents of the file, idea taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
+    // error checking for the contents of the file, taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
     
-    int size;
-    //int expectedLineLength = 0; 
+    long size;
+    int buffer = 1000;
+    char line[buffer];
 
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
         printf("File does not exist");
-        exit(2);
+        fclose(file);
         return 2;
+    } 
 
-    } else {
-        fseek(file, 0, SEEK_END);
-        size = ftell(file);
-    }
+    fseek(file, 0, SEEK_END);
+    size = ftell(file);
+    
 
-    if (0 == size) {
+    if (size == 0) {
         printf("File is empty\n");
-        exit(2);
+        fclose(file);
         return 2;
+    } else {
+        printf("File loaded successfully\n");
+    }
+    
+    while (fgets(line, buffer, file)) {
+        printf("%s", line);
     }
 
-    // something wrong with checkDimensions() functions, don't know yet tho???
     // calls checkDimensions() function before proceding to ensure that time is not wasted
+
     int rowLength = checkRowDimensions(file);
     int colLength = checkColDimensions(file);
 
+    if (rowLength == 3 || colLength == 3) {
+        return 3;
+    }
 
     funcMazeInfo->rowDimension = rowLength;
     funcMazeInfo->colDimension = colLength;
@@ -82,7 +92,6 @@ int allocateMaze(MazeInfo *funcMazeInfo) {
     
 }
 
-
 /**
 * @brief process characters within the maze file and sort into the given array
 *
@@ -98,45 +107,22 @@ int checkRowDimensions(FILE *file) {
 
     // determine buffer size and check all lines same length 
     // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
-    
-    int buffer = 100;
+
+
+    int buffer = 1000;
     char line[buffer];
+    int counter = 0;
 
-    // need to define line variable for the reading of the file 
-    // use the expectedLineLength variable here as it will exit before if there is an issue
-    // also need a variable to temporarily store the character being processed 
-    int length = strlen(fgets(line, buffer, file)) - 1;
-    length = length - 1;
-    /**
-    // to read each line
-    while (fgets(line, buffer, file)) {   
-        // sorting the data in the file
-        //tokeniseMaze(line, currentMazeChar);
-        if ((strlen(line) - 1) != length) {
-            printf("Data in file is not valid\n");
-            return 3;
-    }
-    
-    if (length < 5 || length > 100) {
-
-        printf("Maze dimensions not valid");
-        return 2;
-    }
-
-    }
-    
-
-    return length;
-
-    */
-
-    // error checking done before this declaration 
-    // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
-    // dynamically allocate memory for the size of the 2D array 
-
-    
-    // placeholder return until function is fully programmed 
-    return 0;
+    while (fgets(line, buffer, file)) {
+        counter++;
+    } 
+  
+    if (counter < 5 || counter > 100) {
+        printf("Maze row dimensions not valid\n");
+        return 3;
+    } else {
+        return counter;
+    } 
 }
 
 
@@ -147,58 +133,41 @@ int checkRowDimensions(FILE *file) {
 * @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
 */
 
-// error checking for the uniform row length 
-// error checking for uniform column length 
-
 
 int checkColDimensions(FILE *file) {
 
-
     // determine buffer size and check all lines same length 
     // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
-
+    
     int expectedLineLength = 0; 
     int i = 0;
-    char mazeCharacter;
+    char d;
+    char c;
 
-
-    while (mazeCharacter != EOF)
-        if ((mazeCharacter = fgetc(file)) != EOF && mazeCharacter != '\n') {
-            i++; 
-            expectedLineLength = i;
-        } else if (i != expectedLineLength){ 
-            printf("Data in file is not valid\n");
-            return EXIT_MAZE_ERROR;
-        }
-    
-    if (expectedLineLength < 5 || expectedLineLength > 100) {
-        return EXIT_MAZE_ERROR;
+    while ((d = fgetc(file)) != EOF && d != '\n') {
+        expectedLineLength++;
     }
     
-    
-        // copy the info into the array
-        // have a counter for the counting of lines 
-        //counter++;
-    // need to define line variable for the reading of the file 
-    // use the expectedLineLength variable here as it will exit before if there is an issue
-    // also need a variable to temporarily store the character being processed 
+    while (c != EOF) { 
+        if ((c = fgetc(file)) != EOF && c != '\n') {
+            i++;
+        } else { 
+            if (i != expectedLineLength) {
+                printf("Maze dimensions not valid\n");
+                return 3;
+            }
+            i = 0;
+        }
+    }
 
-
-    // counts individual characters in the row
-    // has a count to count number of rows for array of struct definition
-    // index through the line 
-    // while the char is not \n
-
-
-    // error checking done before this declaration 
-    // if no error assignment of MAZEINFO.rowDimension and MAZEINFO.colDimension
-    // dynamically allocate memory for the size of the 2D array 
-
-    
-    // placeholder return until function is fully programmed 
-    return expectedLineLength;
-    
+    if (expectedLineLength < 5 || expectedLineLength > 100) {
+        printf("Maze column dimensions not valid\n");
+        return 3;
+    } else {
+        return expectedLineLength;
+    }
 }
+
 
 /**
 * @brief input values for rows and columns and changes MAZEINFO instance of struct and adds to MAZEPIECE 2D array 

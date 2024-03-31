@@ -52,26 +52,52 @@ fi
 
 echo -e "\n${PURPLE}~~ Data Tests ~~${NC}\n"
 
-echo -n "Testing maze dimensions are < 100 - "
+echo -n "Testing maze row dimensions are < 100 - "
 
 # Purpose: Checking if maze rows and columns are less than 100 
 # Expectation: Error message and program terminates 
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensionRange100.txt > tmp
-if grep -q "Maze dimensions not valid" tmp;
+if grep -q "Maze row dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
     echo -e "${RED}FAIL${NC}"
 fi
 
-echo -n "Testing maze dimensions are 5 > - "
+echo -n "Testing maze row dimensions are 5 > - "
 
 # Purpose: Checking if maze rows and columns are greater than 5
 # Expectation: Error indicating maze dimensions not valid and program terminates 
 
 timeout 0.2s ./maze invalidMazes/incorrectDimensionRange5.txt > tmp
-if grep -q "Maze dimensions not valid" tmp;
+if grep -q "Maze row dimensions not valid" tmp;
+then
+    echo -e "${GREEN}PASS${NC}"
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+echo -n "Testing maze column dimensions are < 100 - "
+
+# Purpose: Checking if maze rows and columns are less than 100 
+# Expectation: Error message and program terminates 
+
+timeout 0.2s ./maze invalidMazes/incorrectDimensionRange100.txt > tmp
+if grep -q "Maze column dimensions not valid" tmp;
+then
+    echo -e "${GREEN}PASS${NC}"
+else
+    echo -e "${RED}FAIL${NC}"
+fi
+
+echo -n "Testing maze column dimensions are 5 > - "
+
+# Purpose: Checking if maze rows and columns are greater than 5
+# Expectation: Error indicating maze dimensions not valid and program terminates 
+
+timeout 0.2s ./maze invalidMazes/incorrectDimensionRange5.txt > tmp
+if grep -q "Maze column dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -258,12 +284,12 @@ echo -n "Testing file loads succesfully - "
 # Purpose: Scenario where file loads successfully
 # Expectation: Success message shown 
 
-timeout 0.2s ./maze successMazes/successMaze1 > tmp
+timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
 if grep -q "File loaded successfully" tmp;
 then
-        echo -e "${GREEN}PASS${NC}"
-    else
-        echo -e "${RED}FAIL${NC}"
+    echo -e "${GREEN}PASS${NC}"
+else
+    echo -e "${RED}FAIL${NC}"
 fi
 
 

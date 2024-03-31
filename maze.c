@@ -15,6 +15,7 @@ int main(int argc, char* argv[]) {
 
     MazeInfo *mazeInfo = malloc(sizeof(MazeInfo));
     Coord *playerCoord = malloc(sizeof(Coord));
+    
 
 
     // error checking for command line arguments done first
@@ -24,9 +25,11 @@ int main(int argc, char* argv[]) {
     if (argc > 2) {
         printf("Too many arguments\n");
         exit(1);
+        return 3;
     } else if (argc < 2){
         printf("Usage: ./maze <filename>\n");
         exit(1);
+        return 3;
     } else {
         // basic game explaination printed before the while loop starts 
         printf("\nNavigate through the maze by:\n\nW/w - Up\nA/a - Right\nS/s - Down\nD/d - Left\nIf you want to see your current position within the maze please enter M/m.\nA congratulatory message once you complete the maze, please note that your maze may not always be solvable!\n\n");
@@ -38,8 +41,10 @@ int main(int argc, char* argv[]) {
 
     int fileOpens = openFile(argv[1], mazeInfo);
 
+
     if (fileOpens != 0) {
         return fileOpens;
+        exit(1);
     }
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
