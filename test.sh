@@ -229,8 +229,8 @@ echo "d" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/noMoveHitWall.
 if grep -q "Move not allowed, try again:" tmp;
 then
     # checking if the movement is not carried out if correct message produced 
-    timeout 0.2s echo "m" > tmp
-    if grep -q "X #####" tmp;
+    echo "m" > tmp
+    if grep -q "X######" tmp;
     then 
     echo -e "${GREEN}PASS${NC}"
 else

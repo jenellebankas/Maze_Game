@@ -11,7 +11,7 @@
 // calls tokeniseMaze() function and checkDimensions()
 
 
-int openFile(char filename[], MazeInfo *funcMazeInfo) {
+int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
     
     // open the file specified by users argument and need to check if this is initialised correctly 
     // error checking for the filename and if it exists 
@@ -37,6 +37,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
         return 2;
     } else {
         printf("File loaded successfully\n");
+        printf("\n");
         fseek(file, 0, SEEK_SET);
     }
     
@@ -58,9 +59,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
     funcMazeInfo->rowDimension = rowLength;
     funcMazeInfo->colDimension = colLength;
 
-
-
-    check = allocateMaze(funcMazeInfo);
+    check = allocateMaze(funcMazeInfo, funcMazePiece);
     
     if (check != 0) {
         fclose(file);
@@ -82,11 +81,11 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
 
 // taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
 
-int allocateMaze(MazeInfo *funcMazeInfo) {
+int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 
-    funcMazeInfo->mazeMap = malloc(funcMazeInfo->rowDimension * sizeof(MazeInfo));
+    funcMazeInfo->mazeMap = malloc(funcMazeInfo->rowDimension * sizeof(MazePiece));
     for (int i = 0; i < funcMazeInfo->rowDimension; i++) {
-        funcMazeInfo->mazeMap[i] = malloc(funcMazeInfo->colDimension * sizeof(MazeInfo));
+        funcMazeInfo->mazeMap[i] = malloc(funcMazeInfo->colDimension * sizeof(MazePiece));
     }
 
     if (!funcMazeInfo->mazeMap) {
@@ -193,15 +192,8 @@ int checkColDimensions(FILE *file, int rows) {
 */
 
 
-
-// error checking for the different types of char entered and if they are valid 
-
 // counts the number of start and end pieces and produces error if there are too many or none 
-// need to store user position same as where S is present 
-// user's position must be equated to where the S 
-// might be easier to input user's 'X' into maze array when tokenising and have no S
 
-// gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
 // fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
 
 int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
@@ -212,39 +204,42 @@ int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
     int hasStart = 0;
     int hasEnd = 0;
     
-    while (c != EOF) {
-        for (int i = 0; i < funcMazeInfo->rowDimension; i++) {
-            for (int j = 0; j < funcMazeInfo->colDimension + 1; j++) {
-                c = fgetc(file);
+    
+    for (int i = 0; i < funcMazeInfo->rowDimension; i++) {
+        for (int j = 0; j < funcMazeInfo->colDimension + 1; j++) {
 
-                if (c == '\n') {
-                    continue;
-                } else {
-                    strcpy(&funcMazeInfo->mazeMap[i][j].symbol, &c);  
+            c = fgetc(file);
 
-                    if (c == 'S') {
-                        funcMazeInfo->startPosition.x = i;
-                        funcMazeInfo->startPosition.y = j;
-                        hasStart = 1;
-                    } else if (c == 'E') {
-                        funcMazeInfo->endPosition.x = i;
-                        funcMazeInfo->endPosition.y = j;
-                        hasEnd = 1;
-                    }
+            if (c == '\n') {
+                continue;
+            } else {
+                strcpy(&funcMazeInfo->mazeMap[i][j].symbol, &c);  
+                funcMazeInfo->mazeMap[i][j].isWall = 0;
+
+                if (c == 'S') {
+                    funcMazeInfo->startPosition.x = i;
+                    funcMazeInfo->startPosition.y = j;
+                    
+                    hasStart = 1;
+                } else if (c == 'E') {
+                    funcMazeInfo->endPosition.x = i;
+                    funcMazeInfo->endPosition.y = j;
+                    hasEnd = 1;
+                } else if (c == '#') {
+                    funcMazeInfo->mazeMap[i][j].isWall = 1;
                 }
             }
         }
     }
+    
 
     if (hasStart == 0 || hasEnd == 0) {
         printf("Data in file is not valid\n");
-        fclose(file);
         return 3;
     }
 
     if (hasStart > 1 || hasEnd > 1) {
         printf("Data in file is not valid\n");
-        fclose(file);
         return 3;
     }
     

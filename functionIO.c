@@ -27,6 +27,8 @@ int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
     printf("Please enter your next move: ");
     scanf("%s", initialInput);
 
+    printf("\n");
+
     // error checking to see if no values entered or if incorrect values entered 
 
     if (initialInput[1] != '\0') {
@@ -67,12 +69,14 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
             checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
 
-            if (checkValue == 2) {
-                return 1;
+            if (checkValue == 1) {
+                printf("Move not allowed, try again:\n");
+                displayOptions(currentPos, funcMazeInfo);
+                
             } else {
-                currentPos->y++;
+                currentPos->y--;
                 printf("Piece moved successfully\n");
-                return 0;
+                
             }
 
             break;
@@ -81,12 +85,14 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
             checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
 
-            if (checkValue == 2) {
-                return 1;
+            if (checkValue == 1) {
+                printf("Move not allowed, try again:\n");
+                displayOptions(currentPos, funcMazeInfo);
+        
             } else {
                 currentPos->x--;
                 printf("Piece moved successfully\n");
-                return 0;
+                
             }
 
             break;
@@ -95,12 +101,12 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
             checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
 
-            if (checkValue == 2) {
-                return 1;
+            if (checkValue == 1) {
+                printf("Move not allowed, try again:\n");
+                displayOptions(currentPos, funcMazeInfo);
             } else {
-                currentPos->y--;
+                currentPos->y++;
                 printf("Piece moved successfully\n");
-                return 0;
             }
 
             break;
@@ -109,12 +115,13 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
             checkValue = checkMoveValidity(toupper(userInput), currentPos, funcMazeInfo);
 
-            if (checkValue == 2) {
-                return 1;
+            if (checkValue == 1) {
+                printf("Move not allowed, try again:\n");
+                displayOptions(currentPos, funcMazeInfo);
             } else {
                 currentPos->x++;
                 printf("Piece moved successfully\n");
-                return 0;
+                displayOptions(currentPos, funcMazeInfo);
             }
 
             break;
@@ -152,7 +159,7 @@ void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
         for (int j = 0; j < funcMazeInfo->colDimension; j++) {
             // decide whether player is on this spot or not
             // change this bit for my for my implementation
-            if (currentPos->x == j && currentPos->y == i) {
+            if (currentPos->x == i && currentPos->y == j) {
                 printf("X");
             } else {
                 printf("%c", funcMazeInfo->mazeMap[i][j].symbol);
@@ -223,12 +230,16 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
     // ensures that user input can be processed in one format 
     switch (toupper(userInput)) {
         
-        // + 1 to y value 
+        // -1 to y value 
         // see if that piece is a wall in the 2D struct 
         case 'W':
 
             tempPosx = currentPos->x;
-            tempPosy = currentPos->y + 1;
+            tempPosy = currentPos->y - 1;
+
+            if (tempPosy < 0) {
+                return 1;
+            }
 
             if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
                 return 1;
@@ -246,6 +257,10 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             tempPosx = currentPos->x - 1;
             tempPosy = currentPos->y;
 
+            if (tempPosx < 0) {
+                return 1;
+            }
+
             if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
                 return 1;
             } else {
@@ -256,11 +271,16 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
 
         case 'S':
 
-            // -1 to y value
+            // +1 to y value
             // see if that piece is a wall in the 2D struct 
 
+            
             tempPosx = currentPos->x;
-            tempPosy = currentPos->y - 1;
+            tempPosy = currentPos->y + 1;
+
+            if (tempPosy > funcMazeInfo->rowDimension - 1) {
+                return 1;
+            }
 
             if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
                 return 1;
@@ -277,6 +297,10 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
 
             tempPosx = currentPos->x + 1;
             tempPosy = currentPos->y;
+
+            if (tempPosx > funcMazeInfo->colDimension - 1) {
+                return 1;
+            }
 
             if (funcMazeInfo->mazeMap[tempPosx][tempPosy].isWall) {
                 return 1;
@@ -312,9 +336,11 @@ int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // using user's current position compare with x and y values for end position
     if ((currentPos->x == funcMazeInfo->endPosition.x) && (currentPos->y == funcMazeInfo->endPosition.y)) {
-        return 0;
-    } else {
+        currentPos->x = funcMazeInfo->endPosition.x;
+        currentPos->y = funcMazeInfo->endPosition.y;
         return 1;
+    } else {
+        return 0;
     }
 }
 

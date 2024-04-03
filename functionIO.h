@@ -13,7 +13,7 @@
 
 // forward definitions
 
-int openFile(char filename[], MazeInfo *mazeInfo);
+int openFile(char filename[], MazeInfo *mazeInfo, MazePiece *funcMazePiece);
 int checkRowDimensions(FILE *file);
 int checkColDimensions(FILE *file, int rows);
 int checkChar(char input);
@@ -25,9 +25,6 @@ int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo);
 int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo);
 void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo);
 int freeMaze(MazeInfo *funcMazeInfo);
-int allocateMaze(MazeInfo *funcMazeInfo);
-
-
-
+int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece);
 
 #endif

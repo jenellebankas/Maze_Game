@@ -41,7 +41,6 @@ typedef struct {
 
 typedef struct {
 
-    Coord rowColPosition;
     char symbol;
     int isWall;
 
