@@ -17,7 +17,6 @@ int main(int argc, char* argv[]) {
     Coord *playerCoord = malloc(sizeof(Coord));
     
 
-
     // error checking for command line arguments done first
     // error checking for an empty file done before entering the loop so in the openFile() function
 
@@ -40,7 +39,6 @@ int main(int argc, char* argv[]) {
     //stuck in infinite loop?
 
     int fileOpens = openFile(argv[1], mazeInfo);
-
 
     if (fileOpens != 0) {
         return fileOpens;

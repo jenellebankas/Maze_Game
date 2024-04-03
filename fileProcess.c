@@ -18,21 +18,18 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
     // error checking for the contents of the file, taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
     
     long size;
-    int buffer = 1000;
-    char line[buffer];
+    int check;
 
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
-        printf("File does not exist");
-        fclose(file);
+        printf("File does not exist\n");
         return 2;
     } 
     
     fseek(file, 0, SEEK_END);
     size = ftell(file);
     
-
     if (size == 0) {
         printf("File is empty\n");
         fclose(file);
@@ -41,9 +38,6 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
         printf("File loaded successfully\n");
     }
     
-    while (fgets(line, buffer, file)) {
-        printf("%s", line);
-    }
 
     // calls checkDimensions() function before proceding to ensure that time is not wasted
 
@@ -57,18 +51,20 @@ int openFile(char filename[], MazeInfo *funcMazeInfo) {
     funcMazeInfo->rowDimension = rowLength;
     funcMazeInfo->colDimension = colLength;
 
-    allocateMaze(funcMazeInfo);
+    check = allocateMaze(funcMazeInfo);
     
-    // while loop for each line which can be processed by tokeniseMaze() which can be called here 
-    //tokeniseMaze();
-
-    char line[rowLength];
-    char currentMazeChar;
-
-    while (fgets(line, buffer, file)) {
-        tokeniseMaze();
+    if (check != 0) {
+        fclose(file);
+        return check;
     }
+    
+    check = tokeniseMaze(file, funcMazeInfo);
 
+
+    if (check != 0) {
+        fclose(file);
+        return check;
+    }
     
     fclose(file);
     return 0;
@@ -182,21 +178,33 @@ int checkColDimensions(FILE *file) {
 // gain row and column dimension (column returned from tokenise record call) to be used later, to be input into struct 
 // fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
 
-int tokeniseMaze(const char *line, char *mazeToken, MazeInfo *funcMazeInfo) {
+int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
 
-    char *inputCopy = strdup(line);
+    char c;
     
-    // Tokenize the copied string
-    // Need to tokenise based off of each element for each line 
+    for (int i = 0; i < funcMazeInfo->rowDimension + 1; i++) {
+        for (int j = 0; j < funcMazeInfo->colDimension; j++) {
+            c = fgetc(file);
+            int check = checkChar(c);
+            if (check != 0) {
+                return 1;
+                exit(1);
+            }
+            if (c == '\n') {
+                continue;
+            } else {
+                strcpy(&funcMazeInfo->mazeMap[i][j].symbol, &c);  
+                if (c == 'S') {
+                    funcMazeInfo->startPosition.x = i;
+                    funcMazeInfo->startPosition.y = j;
+                } else if (c == 'E') {
+                    funcMazeInfo->endPosition.x = i;
+                    funcMazeInfo->endPosition.y = j;
+                }
+            }
+        }
+    }
     
-    //char *token = strtok(inputCopy);
-    //if (token != NULL) {        
-    //    strcpy(mazeToken, token);
-    //}
-    
-    // Free the duplicated string
-    free(inputCopy);
-
     return 0;
 
 }

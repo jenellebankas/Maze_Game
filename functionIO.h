@@ -17,7 +17,7 @@ int openFile(char filename[], MazeInfo *mazeInfo);
 int checkRowDimensions(FILE *file);
 int checkColDimensions(FILE *file);
 int checkChar(char input);
-int tokeniseMaze(const char *line, char *mazeToken, MazeInfo *funcMazeInfo);
+int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo);
 int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo);
 int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo);
 void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo);
