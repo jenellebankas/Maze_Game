@@ -57,8 +57,8 @@ echo -n "Testing maze row dimensions are < 100 - "
 # Purpose: Checking if maze rows and columns are less than 100 
 # Expectation: Error message and program terminates 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensionRange100.txt > tmp
-if grep -q "Maze row dimensions not valid" tmp;
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectDimensionRange100.txt > tmp
+if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -70,8 +70,8 @@ echo -n "Testing maze row dimensions are 5 > - "
 # Purpose: Checking if maze rows and columns are greater than 5
 # Expectation: Error indicating maze dimensions not valid and program terminates 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensionRange5.txt > tmp
-if grep -q "Maze row dimensions not valid" tmp;
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectDimensionRange5.txt > tmp
+if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -83,8 +83,8 @@ echo -n "Testing maze column dimensions are < 100 - "
 # Purpose: Checking if maze rows and columns are less than 100 
 # Expectation: Error message and program terminates 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensionRange100.txt > tmp
-if grep -q "Maze column dimensions not valid" tmp;
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectDimensionRange100.txt > tmp
+if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -96,8 +96,8 @@ echo -n "Testing maze column dimensions are 5 > - "
 # Purpose: Checking if maze rows and columns are greater than 5
 # Expectation: Error indicating maze dimensions not valid and program terminates 
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensionRange5.txt > tmp
-if grep -q "Maze column dimensions not valid" tmp;
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectDimensionRange5.txt > tmp
+if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
 else
@@ -110,7 +110,7 @@ fi
 
 echo -n "Validity of maze dimensions, test 1 - "
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensions1.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectDimensions1.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -120,7 +120,7 @@ fi
 
 echo -n "Validity of maze dimensions, test 2 - "
 
-timeout 0.2s ./maze invalidMazes/incorrectDimensions2.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectDimensions2.txt > tmp
 if grep -q "Maze dimensions not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -133,7 +133,7 @@ echo -n "Validity of symbols in maze file - "
 # Purpose: Checking for valid symbols in the maze
 # Expectation: Error produced indicating maze file contains invalid characters and program terminates 
 
-timeout 0.2s ./maze invalidMazes/incorrectData.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/incorrectData.txt > tmp
 if grep -q "Data in file is not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -146,7 +146,7 @@ echo -n "Checking if no start present - "
 # Purpose: Checking if start char in maze file 
 # Expectation: Error produced indicating invalid data present and program terminates 
 
-timeout 0.2s ./maze invalidMazes/noStart.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/noStart.txt > tmp
 if grep -q "Data in file is not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -160,7 +160,7 @@ echo -n "Checking if no end present - "
 # Purpose: Checking if end char is present in the maze 
 # Expectation: Error produced indicating invalid data present and program terminates 
 
-timeout 0.2s ./maze invalidMazes/noEnd.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/noEnd.txt > tmp
 if grep -q "Data in file is not valid" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -174,7 +174,7 @@ echo -n "Maze file contains data - "
 # Purpose: To check if program handles an empty file correctly 
 # Expectation: Returns an erro before entering the while loop for game play so program terminates 
 
-timeout 0.2s ./maze invalidMazes/emptyMaze.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/invalidMazes/emptyMaze.txt > tmp
 if grep -q "File is empty" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -225,7 +225,7 @@ echo -n "Invalid movement into wall - "
 # Purpose: Testing impossible moves
 # Expectation: Produce an error message but user's position should remain the same 
 
-echo "d" | timeout 0.2s ./maze successMaze/noMoveHitWall.txt > tmp
+echo "d" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/noMoveHitWall.txt > tmp
 if grep -q "Move not allowed, try again:" tmp;
 then
     # checking if the movement is not carried out if correct message produced 
@@ -247,7 +247,7 @@ echo -n "Cheking if 'X' shown correctly when on start piece - "
 # Purpose: Checking if 'X' shown when on the start char 
 # Expectation: Shows user's position where S would be 
 
-echo "m" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "m" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "X #####" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -284,7 +284,7 @@ echo -n "Testing file loads succesfully - "
 # Purpose: Scenario where file loads successfully
 # Expectation: Success message shown 
 
-timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze1.txt > tmp
 if grep -q "File loaded successfully" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -299,7 +299,7 @@ fi
 
 echo -n "Testing cases of user input (w) - "
 
-echo "w" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "w" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -315,7 +315,7 @@ fi
 
 echo -n "Testing cases of user input (W) - "
 
-echo "W" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "W" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -332,7 +332,7 @@ fi
 
 echo -n "Testing cases of user input (a) - "
 
-echo "a" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "a" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -348,7 +348,7 @@ fi
 
 echo -n "Testing cases of user input (A) - "
 
-echo "A" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "A" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -365,7 +365,7 @@ fi
 
 echo -n "Testing cases of user input (s) - "
 
-echo "s" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "s" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -381,7 +381,7 @@ fi
 
 echo -n "Testing cases of user input (S) - "
 
-echo "S" | timeout 0.2s ./maze successMaze/movementMaze.txt > tmp
+echo "S" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -399,7 +399,7 @@ fi
 
 echo -n "Testing cases of user input (d) - "
 
-echo "d" | ./maze successMaze/movementMaze.txt > tmp
+echo "d" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -415,7 +415,7 @@ fi
 
 echo -n "Testing cases of user input (D) - "
 
-echo "D" | ./maze successMaze/movementMaze.txt > tmp
+echo "D" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
@@ -432,7 +432,7 @@ fi
 
 echo -n "Testing cases of user input (m) - "
 
-echo "m" | timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
+echo "m" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze1.txt > tmp
 if grep -q "#X  #" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -441,7 +441,7 @@ else
 fi
 
 echo -n "Testing cases of user input (M) - "
-echo "M" | timeout 0.2s ./maze successMazes/successMaze1.txt > tmp
+echo "M" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze1.txt > tmp
 if grep -q "#X  #" tmp;
 then
     echo -e "${GREEN}PASS${NC}"
@@ -454,7 +454,7 @@ fi
 
 echo -n "Testing successful run (Maze 1) - "
 
-timeout 0.2s ./maze successMazes/successMaze1.txt < successMoves/successMaze1Moves.in > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze1.txt < /workspaces/Maze_Game/successMoves/successMaze1Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!\n
  _     _  _______  ___      ___        ______   _______  __    _  _______  __  
 | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
@@ -472,7 +472,7 @@ fi
 
 echo -n "Testing successful run (Maze 2) - "
 
-timeout 0.2s ./maze successMazes/successMaze2.txt < successMoves/successMaze2Moves.in > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze2.txt < /workspaces/Maze_Game/successMoves/successMaze2Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!\n 
  _     _  _______  ___      ___        ______   _______  __    _  _______  __  
 | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
@@ -490,7 +490,7 @@ fi
 
 echo -n "Testing successful run (Maze 3) - "
 
-timeout 0.2s ./maze successMazes/successMaze3.txt < successMoves/successMaze3Moves.in > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze3.txt < /workspaces/Maze_Game/successMoves/successMaze3Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!\n
  _     _  _______  ___      ___        ______   _______  __    _  _______  __  
 | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 
@@ -508,7 +508,7 @@ fi
 
 echo -n "Testing successful run (Maze 4) - "
 
-timeout 0.2s ./maze successMazes/successMaze4.txt < successMoves/successMaze4Moves.in > tmp
+timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/successMaze4.txt < /workspaces/Maze_Game/successMoves/successMaze4Moves.in > tmp
 if grep -q "Congratulations, you have reached the end of the maze!\n
  _     _  _______  ___      ___        ______   _______  __    _  _______  __  
 | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  | 

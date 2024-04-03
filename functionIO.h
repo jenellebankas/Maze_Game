@@ -15,7 +15,7 @@
 
 int openFile(char filename[], MazeInfo *mazeInfo);
 int checkRowDimensions(FILE *file);
-int checkColDimensions(FILE *file);
+int checkColDimensions(FILE *file, int rows);
 int checkChar(char input);
 int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo);
 int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo);

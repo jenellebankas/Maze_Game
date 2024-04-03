@@ -71,6 +71,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 return 1;
             } else {
                 currentPos->y++;
+                printf("Piece moved successfully\n");
                 return 0;
             }
 
@@ -84,6 +85,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 return 1;
             } else {
                 currentPos->x--;
+                printf("Piece moved successfully\n");
                 return 0;
             }
 
@@ -97,6 +99,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 return 1;
             } else {
                 currentPos->y--;
+                printf("Piece moved successfully\n");
                 return 0;
             }
 
@@ -110,6 +113,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 return 1;
             } else {
                 currentPos->x++;
+                printf("Piece moved successfully\n");
                 return 0;
             }
 
@@ -193,7 +197,6 @@ int checkChar(char input) {
 
         default:
             return 1;
-            exit(1);
     }
     
     return 0;
