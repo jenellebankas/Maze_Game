@@ -336,7 +336,7 @@ echo "a" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.t
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
-    if grep -q "##X ##" tmp;
+    if grep -q "##XS ##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
     else
@@ -352,7 +352,7 @@ echo "A" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.t
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
-    if grep -q "##X ##" tmp;
+    if grep -q "##XS ##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
     else
@@ -403,7 +403,7 @@ echo "d" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.t
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
-    if grep -q "###  X##" tmp;
+    if grep -q "## SX##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
     else
@@ -419,7 +419,7 @@ echo "D" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.t
 if grep -q "Piece moved successfully" tmp;
 then
     timeout 0.2s echo "m" > tmp
-    if grep -q "###  X##" tmp;
+    if grep -q "## SX##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"
     else
