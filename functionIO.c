@@ -76,7 +76,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->x--;
                 printf("Piece moved successfully\n");
-                
+                return 0;
             }
 
             break;
@@ -92,6 +92,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->y--;
                 printf("Piece moved successfully\n");
+                return 0;
                 
             }
 
@@ -107,6 +108,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->x++;
                 printf("Piece moved successfully\n");
+                return 0;
             }
 
             break;
@@ -121,7 +123,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->y++;
                 printf("Piece moved successfully\n");
-                displayOptions(currentPos, funcMazeInfo);
+                return 0;
             }
 
             break;
@@ -353,7 +355,7 @@ void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // shows success message 
 
-    printf("Congratulations, you have reached the end of the maze!\n\n  _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
+    printf("\nCongratulations, you have reached the end of the maze!\n\n  _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
     
 }
 

@@ -164,6 +164,11 @@ int checkColDimensions(FILE *file, int rows) {
         while ((c = fgetc(file)) != '\n') {
             i++; 
 
+            if (c == EOF) {
+                i--;
+                break;
+            }
+
             int check = checkChar(c);
             if (check != 0) {
                 printf("Data in file is not valid\n");
@@ -173,8 +178,7 @@ int checkColDimensions(FILE *file, int rows) {
 
         if (i != expectedLineLength) {
             return 3;
-        } 
-        
+        }   
     }
     
 

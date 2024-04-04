@@ -47,11 +47,8 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
-    
     playerCoord->x = mazeInfo->startPosition.x;
-    printf("%d\n", mazeInfo->startPosition.x);
     playerCoord->y = mazeInfo->startPosition.y;
-    printf("%d\n", mazeInfo->startPosition.y);
 
     // the user will be prompted for an input this will be done within a while loop controlled by the checkEnd() function
     // the user then plays the game until they reach the end 
@@ -62,9 +59,7 @@ int main(int argc, char* argv[]) {
 
 
     while (!checkEnd(playerCoord, mazeInfo)) {
-
         displayOptions(playerCoord, mazeInfo);
-        
     }
 
     displayEnd(playerCoord, mazeInfo);
