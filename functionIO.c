@@ -74,7 +74,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 displayOptions(currentPos, funcMazeInfo);
                 
             } else {
-                currentPos->y--;
+                currentPos->x--;
                 printf("Piece moved successfully\n");
                 
             }
@@ -90,7 +90,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 displayOptions(currentPos, funcMazeInfo);
         
             } else {
-                currentPos->x--;
+                currentPos->y--;
                 printf("Piece moved successfully\n");
                 
             }
@@ -105,7 +105,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 printf("Move not allowed, try again:\n");
                 displayOptions(currentPos, funcMazeInfo);
             } else {
-                currentPos->y++;
+                currentPos->x++;
                 printf("Piece moved successfully\n");
             }
 
@@ -119,7 +119,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
                 printf("Move not allowed, try again:\n");
                 displayOptions(currentPos, funcMazeInfo);
             } else {
-                currentPos->x++;
+                currentPos->y++;
                 printf("Piece moved successfully\n");
                 displayOptions(currentPos, funcMazeInfo);
             }
@@ -234,10 +234,10 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
         // see if that piece is a wall in the 2D struct 
         case 'W':
 
-            tempPosx = currentPos->x;
-            tempPosy = currentPos->y - 1;
+            tempPosx = currentPos->x - 1;
+            tempPosy = currentPos->y;
 
-            if (tempPosy < 0) {
+            if (tempPosx < 0) {
                 return 1;
             }
 
@@ -254,10 +254,10 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             // -1 to x value
             // see if that piece is a wall in the 2D struct 
 
-            tempPosx = currentPos->x - 1;
-            tempPosy = currentPos->y;
+            tempPosx = currentPos->x;
+            tempPosy = currentPos->y - 1;
 
-            if (tempPosx < 0) {
+            if (tempPosy < 0) {
                 return 1;
             }
 
@@ -275,10 +275,10 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             // see if that piece is a wall in the 2D struct 
 
             
-            tempPosx = currentPos->x;
-            tempPosy = currentPos->y + 1;
+            tempPosx = currentPos->x + 1;
+            tempPosy = currentPos->y;
 
-            if (tempPosy > funcMazeInfo->rowDimension - 1) {
+            if (tempPosx > funcMazeInfo->rowDimension - 1) {
                 return 1;
             }
 
@@ -295,10 +295,10 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
             // +1 to x value
             // see if that piece is a wall in the 2D struct 
 
-            tempPosx = currentPos->x + 1;
-            tempPosy = currentPos->y;
+            tempPosx = currentPos->x;
+            tempPosy = currentPos->y + 1;
 
-            if (tempPosx > funcMazeInfo->colDimension - 1) {
+            if (tempPosy > funcMazeInfo->colDimension - 1) {
                 return 1;
             }
 
@@ -336,8 +336,6 @@ int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
     // using user's current position compare with x and y values for end position
     if ((currentPos->x == funcMazeInfo->endPosition.x) && (currentPos->y == funcMazeInfo->endPosition.y)) {
-        currentPos->x = funcMazeInfo->endPosition.x;
-        currentPos->y = funcMazeInfo->endPosition.y;
         return 1;
     } else {
         return 0;
@@ -353,11 +351,9 @@ int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
 void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 
-    // calls displayMaze()
     // shows success message 
 
-    displayMaze(currentPos, funcMazeInfo);
-    printf("Congratulations, you have reached the end of the maze!\n\n _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
+    printf("Congratulations, you have reached the end of the maze!\n\n  _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
     
 }
 

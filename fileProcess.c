@@ -217,14 +217,16 @@ int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
                 funcMazeInfo->mazeMap[i][j].isWall = 0;
 
                 if (c == 'S') {
+
                     funcMazeInfo->startPosition.x = i;
                     funcMazeInfo->startPosition.y = j;
-                    
                     hasStart = 1;
+
                 } else if (c == 'E') {
                     funcMazeInfo->endPosition.x = i;
                     funcMazeInfo->endPosition.y = j;
                     hasEnd = 1;
+                    
                 } else if (c == '#') {
                     funcMazeInfo->mazeMap[i][j].isWall = 1;
                 }
