@@ -9,8 +9,12 @@
 
 
 /**
-* @brief present prompt for move for the user  
-* @return the users char of choice 
+* @brief present prompt for move for the user 
+*
+* @param currentPos player's position at the time of function call 
+* @param funcMazeInfo struct used for maze at time of gameplay  
+*
+* @return error value if input invalid or 0 if argument is valid 
 */
 
 // called in the while loop which is controlled by variable produced from checkEnd() function
@@ -24,7 +28,7 @@ int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
     char initialInput[100];
     char userChoice;
 
-    printf("Please enter your next move: ");
+    printf("\nPlease enter your next move: ");
     scanf("%s", initialInput);
 
     printf("\n");
@@ -49,10 +53,13 @@ int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
 }
 
 /**
-* @brief movements switch that calls the actual moveUser() function
+* @brief movements switch that calls the actual checkMovement() function
 *
 * @param userInput for the char to be processed obtained from displayOptions()
-* @return 0 or 1 if error and prints message 
+* @param currentPos user's current position within gameplay 
+* @param funcMazeInfo struct storing maze values and information at gameplay 
+*
+* @return 0 once a valid value has been played or argument error if invalid value inputted by user 
 */
 
 
@@ -146,6 +153,9 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
 
 /**
 * @brief displays the maze when user input is M/m
+*
+* @param currentPos user current position to be used for displaying the 'X'
+* @param funcMazeInfo used to print out rest of the maze at the time of usage 
 */
 
 
@@ -178,10 +188,12 @@ void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
 /**
 * @brief checks if valid char within the maze file
 *
+* @param input from tokeniseMaze() function
 * @return 0 or 1 if the characters from the maze file are not valid
 */
 
-// call this in the tokeniseMaze() function as each char is tokenised 
+// call this in the tokeniseMaze() function as each char is tokenised using a switch as a quick check 
+
 int checkChar(char input) {
 
     // use switch case to check if value is valid 
@@ -212,8 +224,12 @@ int checkChar(char input) {
 }
 
 /**
-* @brief checks if move can be made  
-* @param userInput is their chosen move and will 
+* @brief checks if move can be made
+*  
+* @param userInput is their chosen move
+* @param currentPos to compare with intended move
+* @param funcMazeInfo used to check if place intended to move to is a wall
+* 
 * @return 0 or 1 if the move can be carried out will produce an error if the move is not 
 */
 
@@ -326,6 +342,9 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
 /**
 * @brief checks if the end piece has been reached
 *
+* @param currentPos to check if player's position is same as end 
+* @param funcMazeInfo for checking against player's current position 
+* 
 * @return 0 or 1 if the player is moving to the end piece 
 */
 
@@ -345,19 +364,27 @@ int checkEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
 }
 
 /**
-* @brief displays success message and displays maze to the user 
+* @brief displays success message 
 *
 */
 
 // function called when while loop exited to show success message and display maze one last time to user 
 
-void displayEnd(Coord *currentPos, MazeInfo *funcMazeInfo) {
+void displayEnd() {
 
     // shows success message 
 
     printf("\nCongratulations, you have reached the end of the maze!\n\n  _     _  _______  ___      ___        ______   _______  __    _  _______  __ \n | | _ | ||       ||   |    |   |      |      | |       ||  |  | ||       ||  |\n | || || ||    ___||   |    |   |      |  _    ||   _   ||   |_| ||    ___||  |\n |       ||   |___ |   |    |   |      | | |   ||  | |  ||       ||   |___ |  |\n |       ||    ___||   |___ |   |___   | |_|   ||  |_|  ||  _    ||    ___||__|\n |   _   ||   |___ |       ||       |  |       ||       || | |   ||   |___  __ \n |__| |__||_______||_______||_______|  |______| |_______||_|  |__||_______||__|\n" );
     
 }
+
+/**
+* @brief frees all dynamically allocated memory for mazeInfo struct and other variables 
+* 
+* @param funcMazeInfo struct needed to be freed 
+*
+* @return 0 if completed and error value if not 
+*/
 
 // taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
 

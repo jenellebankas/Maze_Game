@@ -418,7 +418,7 @@ echo -n "Testing cases of user input (D) - "
 echo "D" | timeout 0.2s ./maze /workspaces/Maze_Game/successMazes/movementMaze.txt > tmp
 if grep -q "Piece moved successfully" tmp;
 then
-    timeout 0.2s echo "m" > tmp
+    echo 'm' |timeout 0.2s echo "m" > tmp
     if grep -q "## SX##" tmp;
     then 
         echo -e "${GREEN}PASS${NC}"

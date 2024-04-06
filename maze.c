@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
         displayOptions(playerCoord, mazeInfo);
     }
 
-    displayEnd(playerCoord, mazeInfo);
+    displayEnd();
 
     // free memory 
     // return correct value 

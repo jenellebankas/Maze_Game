@@ -5,6 +5,9 @@
 * @brief opening the maze file 
 *
 * @param filename from command arguments taken in from main()
+* @param funcMazeInfo declared in main() and memory allocated in the function
+* @param funcMazePiece declared in main() and used for memory allocation for maze struct 
+* @returns 0 when file opens and data, dimensions are valid and returns error value depending on what causes the error 
 */
 
 // opens the file for manipulation
@@ -79,6 +82,15 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
 
 }
 
+/**
+* @brief dynamically allocating memory for the mazeInfo struct, more specifically the maze map 
+*
+* @param funcMazeInfo declared in main() and memory allocated in the function
+* @param funcMazePiece declared in main() and used for memory allocation for maze struct 
+* @returns 0 when file opens and data, dimensions are valid and returns 3 if memory cannot be allocated 
+*/
+
+
 // taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
 
 int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
@@ -92,16 +104,14 @@ int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
         printf("Error: malloc failed\n");
         return 3;
     }
-
     return 0;
-    
 }
 
 /**
-* @brief process characters within the maze file and sort into the given array
+* @brief process lines in file to calculate how many lines of the maze and check if within specified bounds 
 *
-* @param filename from the user 
-* @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
+* @param file declared within the openFile() function 
+* @return row dimensions or 3 if error occurs with maze dimensions not being correct 
 */
 
 // error checking for the uniform row length 
@@ -131,10 +141,10 @@ int checkRowDimensions(FILE *file) {
 
 
 /**
-* @brief process characters within the maze file and sort into the given array
+* @brief process characters within the maze file checking that they are valid and that each row is the same length 
 *
 * @param file from the user 
-* @return 0 or 1 if error occurs when opening/tokenising file and prints error message 
+* @return number of columns or 3 if error occurs with characters in the maze or bounds 
 */
 
 
@@ -172,7 +182,7 @@ int checkColDimensions(FILE *file, int rows) {
             int check = checkChar(c);
             if (check != 0) {
                 printf("Data in file is not valid\n");
-                return 1;
+                return 3;
             }
         }
 
@@ -192,7 +202,11 @@ int checkColDimensions(FILE *file, int rows) {
 
 /**
 * @brief input values for rows and columns and changes MAZEINFO instance of struct and adds to MAZEPIECE 2D array 
-* @param line is used to be iterated over and characters tokenised 
+*
+* @param file is used to be iterated over and characters put into the struct funcMazeInfo 
+* @param funcMazeInfo struct used to put characters into 
+*
+* @returns 3 if an error occurs with number of starts and ends  or 0 if one does not 
 */
 
 
