@@ -21,13 +21,14 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
     // error checking for the contents of the file, taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
     
     long size;
-    int check;
+    int allocateCheck;
+    int tokenCheck;
 
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
         printf("File does not exist\n");
-        return 2;
+        return EXIT_FILE_ERROR;
     } 
     
     fseek(file, 0, SEEK_END);
@@ -37,7 +38,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
     if (size == 0) {
         printf("File is empty\n");
         fclose(file);
-        return 2;
+        return EXIT_FILE_ERROR;
     } else {
         printf("File loaded successfully\n");
         printf("\n");
@@ -50,35 +51,35 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
     int rowLength = checkRowDimensions(file);
     if (rowLength < 5) {
         printf("Maze dimensions not valid\n");
-        return 3;
+        return EXIT_MAZE_ERROR;
     }
 
     int colLength = checkColDimensions(file, rowLength);
     if (colLength < 5) {
         printf("Maze dimensions not valid\n");
-        return 3;
+        return EXIT_MAZE_ERROR;
     }
 
     funcMazeInfo->rowDimension = rowLength;
     funcMazeInfo->colDimension = colLength;
 
-    check = allocateMaze(funcMazeInfo, funcMazePiece);
+    allocateCheck = allocateMaze(funcMazeInfo, funcMazePiece);
     
-    if (check != 0) {
+    if (allocateCheck != 0) {
         fclose(file);
-        return check;
+        return allocateCheck;
     }
     
-    check = tokeniseMaze(file, funcMazeInfo);
+    tokenCheck = tokeniseMaze(file, funcMazeInfo);
 
 
-    if (check != 0) {
+    if (tokenCheck != 0) {
         fclose(file);
-        return check;
+        return tokenCheck;
     }
     
     fclose(file);
-    return 0;
+    return EXIT_SUCCESS;
 
 }
 
@@ -91,7 +92,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
 */
 
 
-// taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
+// idea taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
 
 int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 
@@ -102,8 +103,9 @@ int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 
     if (!funcMazeInfo->mazeMap) {
         printf("Error: malloc failed\n");
-        return 3;
+        return EXIT_OTHER_ERROR;
     }
+
     return 0;
 }
 
@@ -133,7 +135,7 @@ int checkRowDimensions(FILE *file) {
     
     if (counter < 5 || counter > 100) {
         fclose(file);
-        return 3;
+        return EXIT_MAZE_ERROR;
     }
 
     return counter;  
@@ -182,18 +184,18 @@ int checkColDimensions(FILE *file, int rows) {
             int check = checkChar(c);
             if (check != 0) {
                 printf("Data in file is not valid\n");
-                return 3;
+                return EXIT_MAZE_ERROR;
             }
         }
 
         if (i != expectedLineLength) {
-            return 3;
+            return EXIT_MAZE_ERROR;
         }   
     }
     
 
     if (expectedLineLength < 5 || expectedLineLength > 100) {
-        return 3;
+        return EXIT_MAZE_ERROR;
     }
 
     return expectedLineLength;
@@ -255,12 +257,12 @@ int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
 
     if (hasStart == 0 || hasEnd == 0) {
         printf("Data in file is not valid\n");
-        return 3;
+        return EXIT_MAZE_ERROR;
     }
 
     if (hasStart > 1 || hasEnd > 1) {
         printf("Data in file is not valid\n");
-        return 3;
+        return EXIT_MAZE_ERROR;
     }
     
     return 0;

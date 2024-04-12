@@ -48,7 +48,7 @@ int displayOptions(Coord *currentPos, MazeInfo *funcMazeInfo) {
         // will be changed when solution programmed, will return user choice 
     movement(toupper(userChoice), currentPos, funcMazeInfo);
     
-    return 0;
+    return EXIT_SUCCESS;
 
 }
 
@@ -83,7 +83,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->x--;
                 printf("Piece moved successfully\n");
-                return 0;
+                return EXIT_SUCCESS;
             }
 
             break;
@@ -99,7 +99,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->y--;
                 printf("Piece moved successfully\n");
-                return 0;
+                return EXIT_SUCCESS;
                 
             }
 
@@ -115,7 +115,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->x++;
                 printf("Piece moved successfully\n");
-                return 0;
+                return EXIT_SUCCESS;
             }
 
             break;
@@ -130,7 +130,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             } else {
                 currentPos->y++;
                 printf("Piece moved successfully\n");
-                return 0;
+                return EXIT_SUCCESS;
             }
 
             break;
@@ -138,7 +138,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
         case 'M':
 
             displayMaze(currentPos, funcMazeInfo);
-            return 0;
+            return EXIT_SUCCESS;
             break;
 
         default:
@@ -146,7 +146,7 @@ int movement(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo) {
             return EXIT_ARG_ERROR;
     } 
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
@@ -181,7 +181,6 @@ void displayMaze(Coord *currentPos, MazeInfo *funcMazeInfo) {
         printf("\n");
     }
     
-
 }
 
 
@@ -201,26 +200,26 @@ int checkChar(char input) {
     switch (input) {
 
         case '#':
-            return 0;
+            return EXIT_SUCCESS;
             break;
 
         case ' ':
-            return 0;
+            return EXIT_SUCCESS;
             break;
 
         case 'E':
-            return 0;
+            return EXIT_SUCCESS;
             break;
 
         case 'S':
-            return 0;
+            return EXIT_SUCCESS;
             break;
 
         default:
-            return 1;
+            return EXIT_MAZE_ERROR;
     }
     
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 /**
@@ -331,11 +330,11 @@ int checkMoveValidity(char userInput, Coord *currentPos, MazeInfo *funcMazeInfo)
         default:
 
             // might need to change to ensure that a potential error message is produced 
-            return 2;
+            return EXIT_ARG_ERROR;
 
     } 
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
@@ -392,7 +391,7 @@ int freeMaze(MazeInfo *funcMazeInfo) {
 
     // always check it isn't already null - you will segfault.
     if (funcMazeInfo == NULL) {
-        return 100;
+        return EXIT_OTHER_ERROR;
     }
 
     if (funcMazeInfo->mazeMap != NULL) {
@@ -408,6 +407,6 @@ int freeMaze(MazeInfo *funcMazeInfo) {
     }
 
     free(funcMazeInfo);
-    return 0;
+    return EXIT_SUCCESS;
 
 }

@@ -24,12 +24,10 @@ int main(int argc, char* argv[]) {
     // need to check number of arguments entered 
     if (argc > 2) {
         printf("Too many arguments\n");
-        exit(1);
-        return 3;
+        return EXIT_ARG_ERROR;
     } else if (argc < 2){
         printf("Usage: ./maze <filename>\n");
-        exit(1);
-        return 3;
+        return EXIT_ARG_ERROR;
     } else {
         // basic game explaination printed before the while loop starts 
         printf("\nNavigate through the maze by:\n\nW/w - Up\nA/a - Right\nS/s - Down\nD/d - Left\nIf you want to see your current position within the maze please enter M/m.\nA congratulatory message once you complete the maze, please note that your maze may not always be solvable!\n\n");
@@ -44,7 +42,6 @@ int main(int argc, char* argv[]) {
 
     if (fileOpens != 0) {
         return fileOpens;
-        exit(1);
     }
 
     playerCoord->x = mazeInfo->startPosition.x;
@@ -68,8 +65,7 @@ int main(int argc, char* argv[]) {
     // return correct value 
 
     freeMaze(mazeInfo);
-    exit(EXIT_SUCCESS);
-    return 0;
+    return EXIT_SUCCESS;
     
 }
 
