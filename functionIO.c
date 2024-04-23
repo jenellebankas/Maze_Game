@@ -389,7 +389,7 @@ void displayEnd() {
 
 int freeMaze(MazeInfo *funcMazeInfo) {
 
-    // always check it isn't already null - you will segfault.
+    // Checking that it is not NULL already 
     if (funcMazeInfo == NULL) {
         return EXIT_OTHER_ERROR;
     }

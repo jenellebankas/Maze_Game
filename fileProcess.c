@@ -49,12 +49,13 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
     // calls checkDimensions() function before proceding to ensure that time is not wasted
 
     int rowLength = checkRowDimensions(file);
-    if (rowLength < 5) {
+    if (rowLength == EXIT_MAZE_ERROR) {
         return EXIT_MAZE_ERROR;
     }
 
     int colLength = checkColDimensions(file, rowLength);
-    if (colLength < 5) {
+    if (colLength == EXIT_MAZE_ERROR) {
+        fclose(file);
         return EXIT_MAZE_ERROR;
     }
 
@@ -63,9 +64,9 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
 
     allocateCheck = allocateMaze(funcMazeInfo, funcMazePiece);
     
-    if (allocateCheck != 0) {
+    if (allocateCheck == EXIT_MAZE_ERROR) {
         fclose(file);
-        return allocateCheck;
+        return EXIT_MAZE_ERROR;
     }
     
     tokenCheck = tokeniseMaze(file, funcMazeInfo);
@@ -73,7 +74,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
 
     if (tokenCheck != 0) {
         fclose(file);
-        return tokenCheck;
+        return EXIT_MAZE_ERROR;
     }
     
     fclose(file);
@@ -131,7 +132,7 @@ int checkRowDimensions(FILE *file) {
         counter++;
     } 
     
-    if (counter < 5 || counter > 100) {
+    if (counter < MIN_DIM || counter > MAX_DIM) {
         fclose(file);
         printf("Maze dimensions not valid\n");
         return EXIT_MAZE_ERROR;
@@ -194,7 +195,7 @@ int checkColDimensions(FILE *file, int rows) {
     }
     
 
-    if (expectedLineLength < 5 || expectedLineLength > 100) {
+    if (expectedLineLength < MIN_DIM || expectedLineLength > MAX_DIM) {
         printf("Maze dimensions not valid\n");
         return EXIT_MAZE_ERROR;
     }

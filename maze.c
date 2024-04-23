@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
 
 
     if (fileOpens != 0) {
+        freeMaze(mazeInfo);
         return fileOpens;
     }
 
