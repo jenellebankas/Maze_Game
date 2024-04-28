@@ -14,11 +14,11 @@
 #include <string.h>
 
 
-// defines for max and min permitted dimensions
+// Defines for max and min permitted dimensions
 #define MAX_DIM 100
 #define MIN_DIM 5
 
-// defines for the required autograder exit codes
+// Defines for the required autograder exit codes
 #define EXIT_SUCCESS 0
 #define EXIT_ARG_ERROR 1
 #define EXIT_FILE_ERROR 2
@@ -33,12 +33,6 @@ typedef struct {
 
 } Coord;
 
-// struct definition to use for pieces within maze
-// loop through each piece from file and assign 
-// each piece has a symbol, column, row
-// boolean implemented as integers to check the type of piece so symbols don't have to be compared 
-// will be defined as a 2D array later on in program see tokeniseMaze()
-// user's position will also be defined as a piece but initialised separately 
 
 typedef struct {
 
@@ -48,10 +42,7 @@ typedef struct {
 } MazePiece;
 
 
-// struct for the maze 
-// this struct will hold the data to of the start positions, end positions and dimensions of the maze 
-// instance created before openFile procedure done and values set to 0 and then changed in tokeniseMaze function
-
+// Instance created before openFile procedure done 
 
 typedef struct {
 

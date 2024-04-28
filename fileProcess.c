@@ -10,15 +10,11 @@
 * @returns 0 when file opens and data, dimensions are valid and returns error value depending on what causes the error 
 */
 
-// opens the file for manipulation
-// calls tokeniseMaze() function and checkDimensions()
-
 
 int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
-    
-    // open the file specified by users argument and need to check if this is initialised correctly 
-    // error checking for the filename and if it exists 
-    // error checking for the contents of the file, taken from: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
+
+
+    // Error checking for the contents of the file, this program is adapted from an example provided on: https://stackoverflow.com/questions/13566082/how-to-check-if-a-file-has-content-or-not-using-c
     
     long size;
     int allocateCheck;
@@ -46,7 +42,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
     }
     
 
-    // calls checkDimensions() function before proceding to ensure that time is not wasted
+    // Calls checkDimensions() function before proceding to ensure that time is not wasted
 
     int rowLength = checkRowDimensions(file);
     if (rowLength == EXIT_MAZE_ERROR) {
@@ -91,7 +87,7 @@ int openFile(char filename[], MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) 
 */
 
 
-// idea taken from: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
+// This program is adapted from an example provided on: https://github.com/Scsabr/comp1921-struct-pointers/blob/main/code.c 
 
 int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 
@@ -115,14 +111,10 @@ int allocateMaze(MazeInfo *funcMazeInfo, MazePiece *funcMazePiece) {
 * @return row dimensions or 3 if error occurs with maze dimensions not being correct 
 */
 
-// error checking for the uniform row length 
-// error checking for uniform column length 
-
-
 int checkRowDimensions(FILE *file) {
 
-    // determine buffer size and check all lines same length 
-    // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
+    // Determine buffer size and check all lines same length 
+    // This program is adapted from an example provided on: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
 
     int buffer = 1000;
     char line[buffer];
@@ -154,9 +146,7 @@ int checkColDimensions(FILE *file, int rows) {
 
     fseek(file, 0, SEEK_SET);
 
-
-    // determine buffer size and check all lines same length 
-    // idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
+    // Idea taken from: https://stackoverflow.com/questions/2137156/finding-line-size-of-each-row-in-a-text-file#:~:text=If%20you%20already%20know%20that,strlen()%20on%20each%20substring.
     
     int expectedLineLength = 0; 
     int i = 0;
@@ -212,11 +202,9 @@ int checkColDimensions(FILE *file, int rows) {
 *
 * @returns 3 if an error occurs with number of starts and ends  or 0 if one does not 
 */
+ 
 
-
-// counts the number of start and end pieces and produces error if there are too many or none 
-
-// fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
+// Fgetc() taken from: https://stackoverflow.com/questions/4179671/read-in-text-file-1-character-at-a-time-using-c use this in this function
 
 int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
 
