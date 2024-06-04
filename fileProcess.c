@@ -230,12 +230,12 @@ int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
 
                     funcMazeInfo->startPosition.x = i;
                     funcMazeInfo->startPosition.y = j;
-                    hasStart = 1;
+                    hasStart += 1;
 
                 } else if (c == 'E') {
                     funcMazeInfo->endPosition.x = i;
                     funcMazeInfo->endPosition.y = j;
-                    hasEnd = 1;
+                    hasEnd += 1;
                     
                 } else if (c == '#') {
                     funcMazeInfo->mazeMap[i][j].isWall = 1;
@@ -244,7 +244,6 @@ int tokeniseMaze(FILE *file, MazeInfo *funcMazeInfo) {
         }
     }
     
-
     if (hasStart == 0 || hasEnd == 0) {
         printf("Data in file is not valid\n");
         return EXIT_MAZE_ERROR;
